@@ -1,0 +1,25 @@
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from  '@react-navigation/stack';
+
+import SignUp from './screens/SignUp';
+import Login from './screens/Login';
+import araba from './screens/araba';
+import forgot from'./screens/forgot';
+
+const Stack = createStackNavigator();
+
+const Navigation = props => {
+    return (
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="Home">
+                <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
+                <Stack.Screen name="SignUp" component={SignUp} options={{headerShown: false}} />
+                <Stack.Screen name="araba" component={araba} options={{headerShown: false}} />
+                <Stack.Screen name="forgot" component={forgot} options={{headerShown: false}} />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
+};
+
+export default Navigation;
