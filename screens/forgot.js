@@ -8,6 +8,7 @@ import {Formik} from "formik";
  import * as Yup from 'yup'
 import {observable} from "mobx";
 import {observer,inject} from "mobx-react"; 
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 export default class forgot extends Component{
     constructor(props){
@@ -16,7 +17,9 @@ export default class forgot extends Component{
            
         }
     }
-  
+    functionTwo(){
+        alert('Şifreniz Mailinize Gönderilmiştir')
+    }        
  
     render(){ 
         
@@ -25,7 +28,7 @@ export default class forgot extends Component{
         const ab=null
         const a="Şifreniz Mailinize Gönderildi"
         return(
-<ScrollView style={{backgroundColor: '#40ACD4'}}>
+<ScrollView style={{backgroundColor: '#f44336'}}>
             <View style={styles.container}>
             
             <Text style={styles.textBody,{color:'white',fontSize:25}}>Şifre Yenileme İçin</Text>
@@ -40,7 +43,7 @@ export default class forgot extends Component{
    onSubmit={this._handleSubmit}
    validationSchema={Yup.object().shape({
 
-    mail:Yup.string().required("*Lütfen Mailinizi Giriniz.")
+    mail:Yup.string().email("*Lütfen Geçerli Bir email Giriniz").required("*Lütfen Mailinizi Giriniz.")
    
    })}
    >
@@ -59,37 +62,40 @@ style={styles.input}></TextInput>
 
 
 
-{(errors.mail)&&<Text style={{color:'red'}}> {errors.mail} </Text>}
+{(errors.mail)&&<Text style={{color:'white'}}> {errors.mail} </Text>}
      </View>
 
      <View style={styles.icon}>
 <Icon  name={Platform.OS === "ios" ? "ios-add" : "mail-outline"}
 //name={(this.state.hidePassword)?"eye-off-outlane:eye-outlane"}  şifre görünürlüğü açıp kapatma
-color="black"
+color="red"
 size={30}/>
 </View>
  
 
-
+<TouchableOpacity onPress={()=>this.props.navigation.navigate('Login')} style={{position:'absolute',right:'70%',top:'-150%'}}>
+    <Icon  name={Platform.OS === "ios" ? "ios-add" : "arrow-back-circle-outline"}
+  //name={(this.state.hidePassword)?"eye-off-outlane:eye-outlane"}  şifre görünürlüğü açıp kapatma
+  color="white"
+  size={55}/>
+</TouchableOpacity>
 
 
 {
 console.log(values.mail)
        }
+      
 <View style={{alignItems:'center'}}>
-<TouchableOpacity 
+<TouchableHighlight 
 
-onPress={values.mail==='' ? handleSubmit : ()=>this.props.navigation.navigate('Login') }
+onPress={values.mail==='' ? handleSubmit : ()=>{this.functionTwo() ;this.props.navigation.navigate('Login')} }
 
 style={styles.button} >
     <Text style={{color:'white',fontSize:20}}>GÖNDER</Text>
-</TouchableOpacity>
+</TouchableHighlight>
 </View>
 
-<View style={{  alignItems: 'center',
-        justifyContent: 'center',marginTop:100}}>
-    <Text style={styles.textBody,{color:'white',fontSize:27}}>Şifreniz Mailinize Gönderilecektir.</Text>
-</View>
+
 
 
 
@@ -146,7 +152,7 @@ const styles = StyleSheet.create({
         borderWidth: 1
      },
      item:{marginBottom:20,alignItems:'center'},
-     button:{backgroundColor:'#009999',borderRadius:15,paddingVertical:15,alignItems:'center',width:300}
-,icon:{position:'absolute',right:85,top:25}
+     button:{backgroundColor:'#ba000d',borderRadius:15,paddingVertical:15,alignItems:'center',width:300}
+,icon:{position:'absolute',right:40,top:25}
      
 });
