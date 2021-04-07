@@ -42,7 +42,7 @@ export default class Login extends Component {
             headers: {authorization: res.data.data.token},
           })
           .then(res => {
-            alert(JSON.stringify(res));
+            this.props.navigation.navigate('map');
           })
           .catch(e => {});
       })

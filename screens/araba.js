@@ -18,6 +18,9 @@ import {observable} from 'mobx';
 import {observer, inject} from 'mobx-react';
 import {API_URL} from '../config/system';
 import axios from 'axios';
+// import ConfirmGoogleCaptcha from 'react-native-google-recaptcha-v2';
+// const siteKey = 'AIzaSyAaUHSs3RnNqnjURZMpCAIOBD4oHrcTNh4';
+// const baseUrl = 'base_url';
 
 export default class Araba extends Component {
   constructor() {
@@ -42,9 +45,29 @@ export default class Araba extends Component {
   }; 
   render() {
     const {isim, mail, sifre, tell} = this.props.route.params;
-
+//  onMessage = event => {
+//          if (event && event.nativeEvent.data) {
+//             if (['cancel', 'error', 'expired'].includes(event.nativeEvent.data)) {
+//                 this.captchaForm.hide();
+//                 return;
+//             } else {
+//                 console.log('Verified code from Google', event.nativeEvent.data);
+//                 setTimeout(() => {
+//                     this.captchaForm.hide();
+//                     // do what ever you want here
+//                 }, 1500);
+//             }
+//         }
+//     };
     return (
       <ScrollView style={{backgroundColor: '#d7ccc8'}}>
+        {/* <ConfirmGoogleCaptcha
+                    ref={_ref => this.captchaForm = _ref}
+                    siteKey={siteKey}
+                    
+                    languageCode='en'
+                    onMessage={this.onMessage}
+                /> */}
         <View style={styles.container}>
         <TouchableOpacity onPress={()=>this.props.navigation.navigate('SignUp')} style={{position:'absolute',right:355,top:15}}>
     <Icon  name={Platform.OS === "ios" ? "ios-add" : "arrow-back-circle-outline"}
@@ -58,7 +81,9 @@ export default class Araba extends Component {
             style={styles.image}
           />
           <Text style={styles.textTitle}>Devam Edelim</Text>
-          <Text style={styles.textBody}>Arabanızın;</Text>
+          <Text style={{  fontSize: 23,
+    fontFamily: 'Foundation',
+    color:'#bc477b'}}>Arabanızın;</Text>
 
           <Formik
             initialValues={{
@@ -73,11 +98,12 @@ export default class Araba extends Component {
             onSubmit={this._handleSubmit}
             validationSchema={Yup.object().shape({
               licensePlate: Yup.string().required(
-                '*Lütfen fuelTypenızı Giriniz.',
+                '*Lütfen Plakanızı Giriniz.',
               ),
             })}>
             {({values, handleSubmit, handleChange, errors, touched}) => (
-              <View>
+             
+             <View>
                 <View style={styles.item}>
                   <View style={{position: 'absolute', right: 285, top: 25}}>
                     <Icon
@@ -170,7 +196,7 @@ export default class Araba extends Component {
                           />
                         ),
                       },
-                      {label: 'Seçiniz...', value: 'seçiniz'},
+                      {label: 'Yakıt Türünü Seçiniz...', value: 'seçiniz'},
                     ]}
                     defaultValue={this.state.yakit}
                     containerStyle={{
@@ -214,7 +240,7 @@ export default class Araba extends Component {
                       {label: 'Pick Up', value: 'pup'},
                       {label: 'SUV', value: 'suv'},
                       {label: 'Diğer', value: 'diger'},
-                      {label: 'Seçiniz...', value: 'seçiniz'},
+                      {label: 'Araç Türünü Seçiniz... ', value: 'seçiniz'},
                     ]}
                     defaultValue={this.state.cars}
                     containerStyle={{
@@ -298,6 +324,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontFamily: 'Foundation',
     marginVertical: 5,
+    marginBottom:15,
     color:'#8c0032'
   },
   textBody: {

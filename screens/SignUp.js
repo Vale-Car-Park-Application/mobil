@@ -252,8 +252,8 @@ const styles = StyleSheet.create({
     },
     image: {
         resizeMode:'contain',
-        width:'75%',
-        height: 250,
+        width:'65%',
+        height: 200,
         marginVertical: 10
     },
     textTitle: {
