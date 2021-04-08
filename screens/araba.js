@@ -35,7 +35,7 @@ export default class Araba extends Component {
     axios
       .post(`${API_URL}/api/signup`, values)
       .then(res => {
-        if(res.data.code === 200) alert(res.data.message);
+        if(res.data.code === 200)this.props.navigation.navigate('map' ,{profile: JSON.stringify(res.data.data.profile) , token: res.data.data.token});
       })
       .catch(e => {
         console.log(e);
@@ -45,6 +45,7 @@ export default class Araba extends Component {
   }; 
   render() {
     const {isim, mail, sifre, tell} = this.props.route.params;
+    
 //  onMessage = event => {
 //          if (event && event.nativeEvent.data) {
 //             if (['cancel', 'error', 'expired'].includes(event.nativeEvent.data)) {
@@ -69,6 +70,12 @@ export default class Araba extends Component {
                     onMessage={this.onMessage}
                 /> */}
         <View style={styles.container}>
+        <TouchableOpacity onPress={()=>alert(tell)} style={{position:'absolute',right:355,top:85}}>
+    <Icon  name={Platform.OS === "ios" ? "ios-add" : "arrow-back-circle-outline"}
+  //name={(this.state.hidePassword)?"eye-off-outlane:eye-outlane"}  şifre görünürlüğü açıp kapatma
+  color="black"
+  size={55}/>
+</TouchableOpacity>
         <TouchableOpacity onPress={()=>this.props.navigation.navigate('SignUp')} style={{position:'absolute',right:355,top:15}}>
     <Icon  name={Platform.OS === "ios" ? "ios-add" : "arrow-back-circle-outline"}
   //name={(this.state.hidePassword)?"eye-off-outlane:eye-outlane"}  şifre görünürlüğü açıp kapatma

@@ -34,19 +34,33 @@ export default class Login extends Component {
     };
   }
 
+  // _handleSubmit = values => {
+  //   axios.post(`${API_URL}/api/signin`, values)
+  //     .then(res => {
+  //       console.log(res);
+  //       axios.get(`${API_URL}/api/current_user`, {
+  //           headers: {authorization: res.data.data.token},
+  //         })
+  //         .then(res => {
+  //           this.props.navigation.navigate('map');
+  //         })
+  //         .catch(e => {});
+  //     })
+      
+  //     .catch(e => {
+  //       if(e.response.data.code === 404) alert(e.response.data.message);
+  //       console.log(e);
+  //     });
+  // };
+
+  
+
   _handleSubmit = values => {
     axios.post(`${API_URL}/api/signin`, values)
       .then(res => {
-        console.log(res);
-        axios.get(`${API_URL}/api/current_user`, {
-            headers: {authorization: res.data.data.token},
-          })
-          .then(res => {
-            this.props.navigation.navigate('map');
-          })
-          .catch(e => {});
+        this.props.navigation.navigate('map' ,{profile: JSON.stringify(res.data.data.profile) , token: res.data.data.token});
       })
-
+      
       .catch(e => {
         if(e.response.data.code === 404) alert(e.response.data.message);
         console.log(e);
@@ -54,6 +68,7 @@ export default class Login extends Component {
   };
 
   render() {
+  
     return (
       <ScrollView style={{backgroundColor: '#a5d6a7'}}>
         <View style={styles.container}>

@@ -34,7 +34,7 @@ import {
     this.setState({bosyer:res.data.items[13].reputation_change_day})
     this.setState({doluluk:res.data.items[14].accept_rate})
     })
-    .catch(e => {console.log('abc')});
+    .catch(e => {console.log(e)});
     
   }
 

@@ -22,16 +22,27 @@ export default class SignUp extends Component{
     }
   
     _handleSubmit=(values)=>{
-        {console.log(values)}
-        axios.post(`${API_URL}/api/signup`,values)
-  .then((res)=>{console.log(res)})
-  .catch((e))
+       // {console.log(values)}
+       
+       if(values.phoneNumber[0] == '0') values.phoneNumber = values.phoneNumber.substring(1);
+       values.phoneNumber = values.phoneNumber.substring(0, 3) + '-' + values.phoneNumber.substring(3,6) + '-' + values.phoneNumber.substring(6,values.phoneNumber.length)
+
+       this.props.navigation.navigate('araba',{isim:values.name,mail:values.email,tell:values.phoneNumber,sifre:values.password})
     }
     // handlingButton(){
     //     this.state.firstButtonEnable ? this.setState({secondButtonDisable : true}): null;
     // }
     render(){
       
+        // function addStr(str, index, stringToAdd){
+        //     return str.substring(0, index) + stringToAdd + str.substring(index, str.length);
+        //   }
+          
+        //   let str = "This is a string";
+        //   let stringToAdd = "modyfied ";
+          
+        //   console.log(addStr(str, 10, stringToAdd));  //outPut : "This is a modified string"
+
     return (
         <ScrollView style={{backgroundColor: '#b2dfdb'}}>
 
@@ -130,7 +141,9 @@ value={values.phoneNumber}
 onChangeText={handleChange('phoneNumber')}
 
 placeholder={"Telefon"} 
-style={styles.input}></TextInput>
+style={styles.input}
+maxLength = {11}
+></TextInput>
 
 
 
@@ -177,7 +190,7 @@ style={styles.input}></TextInput>
 
 
 
-         <View style={{alignItems:'center'}}>
+         {/* <View style={{alignItems:'center'}}>
     <TouchableOpacity 
 
     onPress={handleSubmit}
@@ -186,13 +199,13 @@ style={styles.input}></TextInput>
         styles.button}>
         <Text style={{color:'#002f6c',fontSize:20}}>Girilen Verileri Kaydet</Text>
     </TouchableOpacity>
-</View> 
+</View>  */}
 
 
 <View style={{alignItems:'center'}}>
     <TouchableOpacity 
 
-    onPress={()=>this.props.navigation.navigate('araba',{isim:values.name,mail:values.email,tell:values.phoneNumber,sifre:values.password})}
+    onPress={handleSubmit}
     style={
         
         styles.button}>
