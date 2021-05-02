@@ -67,7 +67,7 @@ return(
 </Text>
 <Text style={{color:'#c88719',fontSize:30 ,marginTop:35,paddingTop:35}}>Rezervasyon İşlemi İçin </Text>
 <Text style={{color:'#c88719',fontSize:30 ,marginBottom:55,paddingTop:35}}> Devam Ediniz</Text>
-<TouchableOpacity  style={{paddingBottom:20,paddingTop:35}}onPress={()=>alert('Rezervasyon işlemine gidiliyor')
+<TouchableOpacity  style={{paddingBottom:20,paddingTop:35}}onPress={()=>this.props.navigation.navigate('iücotoparkalanlar')
   /*this.props.navigation.navigate('iücRez')*/
   }>
     <Icon  name={Platform.OS === "ios" ? "ios-add" : "create-outline"}

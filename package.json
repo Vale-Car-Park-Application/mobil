@@ -30,6 +30,7 @@
     "react": "17.0.1",
     "react-native": "0.64.0",
     "react-native-action-button": "^2.8.5",
+    "react-native-countdown-component": "^2.7.1",
     "react-native-dropdown-picker": "^4.0.2",
     "react-native-elements": "^3.3.2",
     "react-native-fbsdk": "^3.0.0",

@@ -43,7 +43,11 @@ export default class SignUp extends Component{
           
         //   console.log(addStr(str, 10, stringToAdd));  //outPut : "This is a modified string"
 
+        const phoneRegex = RegExp(
+            /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+          );
     return (
+        
         <ScrollView style={{backgroundColor: '#b2dfdb'}}>
 
 
@@ -77,7 +81,7 @@ export default class SignUp extends Component{
 
         name:Yup.string().required("*Lütfen Adınızı ve Soyadınızı Giriniz."),
         email:Yup.string().email("*Lütfen Geçerli Bir email Giriniz").required("*Lütfen Mailinizi Giriniz."),
-        phoneNumber:Yup.string().required("*Lütfen Telefon Numarınızı Giriniz."),
+        phoneNumber:Yup.string().matches(phoneRegex, "*Lütfen Geçerli Bir Telefon Numarası Giriniz.").required("*Lütfen Telefon Numarınızı Giriniz."),
         password:Yup.string().required("*Lütfen Şifreyi Giriniz."),
         
        })}
@@ -143,6 +147,7 @@ onChangeText={handleChange('phoneNumber')}
 placeholder={"Telefon"} 
 style={styles.input}
 maxLength = {11}
+
 ></TextInput>
 
 
