@@ -10,21 +10,24 @@ import {
   Touchable,
   Image,
   TouchableOpacity,
-  Shape
+  Shape,
+  Modal
  } from 'react-native';
  import axios from "axios"
  import Icon from "react-native-vector-icons/Ionicons"
 
 
  export default class iücdoluluk extends Component{
-   
-  constructor(props){
+ 
+
+  constructor(props)
+  {
 
     super(props)
     this.state={
  doluluk:'',
- bosyer:''
-     
+ bosyer:'',
+ show:false
     }
 }
 
@@ -84,8 +87,24 @@ return(
   </Icon>
     
   </TouchableOpacity>
+  <Modal
+   transparent={true}
+   visible={this.state.show}
+   ><View style={{backgroundColor:"#000000aa",flex:1}}>
+     <View style={{backgroundColor:"#ffffff",margin:50,padding:40,borderRadius:10,flex:1}}>
+    <Image style={{width:160,height:400}} source={{uri: 'https://www.ciziktirik.com/wp-content/uploads/2018/03/otopark_5_84_arac.jpg'}}/>
+    <TouchableOpacity style={{alignItems: "center",
+    backgroundColor: "#DDDDDD",
+    padding: 10, borderRadius:55}} onPress={()=>{this.setState({show:false})}}><Text>Geri dön</Text></TouchableOpacity>
+     </View>
+     </View>
+     </Modal>
   </View>
-
+  <View style={{position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection:'row-reverse',marginBottom:15}}>
+      <TouchableOpacity style={{alignItems: "center",
+    backgroundColor: "#DDDDDD",
+    padding: 10, borderRadius:55}} onPress={()=>{this.setState({show:true})}}>
+        <Text>Krokiyi görüntüle</Text></TouchableOpacity></View>
 
 
 
