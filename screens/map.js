@@ -77,10 +77,14 @@ export default class map extends Component {
     return (
       <View style={styles.container}>
     
-        <View style={{width: '100%', height: 48}}>
+        <View style={{width: '100%', height: 48,backgroundColor:'#efebe7'}}>
+          <View style={{alignItems: 'center',justifyContent: 'center'}}>
+          <Text style={{fontSize:30,color:'green'}}>Otopark Seçiniz</Text>
+          </View>
+          
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Login')}
-            style={{position: 'absolute', right: 350, top: -5}}>
+            style={{position: 'absolute', right: '85%', top: '-10%'}}>
             <Icon
               name={
                 Platform.OS === 'ios' ? 'ios-add' : 'arrow-back-circle-outline'
