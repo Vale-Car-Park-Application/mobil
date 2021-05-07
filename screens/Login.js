@@ -70,7 +70,7 @@ export default class Login extends Component {
   render() {
   
     return (
-      <ScrollView style={{backgroundColor: '#a5d6a7'}}>
+      <ScrollView style={{backgroundColor: '#00bfa5'}}>
         <View style={styles.container}>
           <Image
             source={require('../assets/car4.png')}
@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
   },
   item: {marginBottom: 20, alignItems: 'center'},
   button: {
-    backgroundColor: '#75a478',
+    backgroundColor: '#5df2d6',
     borderRadius: 15,
     paddingVertical: 15,
     alignItems: 'center',

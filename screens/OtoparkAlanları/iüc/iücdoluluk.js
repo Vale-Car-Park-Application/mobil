@@ -31,8 +31,8 @@ import {
   componentDidMount() {
     axios.get(`https://api.stackexchange.com/2.2/users?page=1&order=desc&sort=reputation&site=stackoverflow`)
     .then(res => {
-    this.setState({bosyer:res.data.items[13].reputation_change_day})
-    this.setState({doluluk:res.data.items[14].accept_rate})
+    this.setState({bosyer:res.data.items[12].reputation_change_day})
+    this.setState({doluluk:res.data.items[11].accept_rate})
     })
     .catch(e => {console.log(e)});
     
@@ -57,7 +57,7 @@ return(
     Otopark Doluluk Oranı 
 </Text>
 <Text style={{color:'#bc5100',alignItems:'center',marginBottom:15,marginTop:15,fontSize:40,fontWeight:'700',fontFamily:'monospace'}}>
-    % {this.state.doluluk}
+    %{this.state.doluluk}
 </Text>
 <Text style={{color:'#ca9b52',marginBottom:15,marginTop:45,fontSize:22,fontWeight:'700',fontFamily:'monospace'}}>
     Otoparktaki boş alan sayısı 
