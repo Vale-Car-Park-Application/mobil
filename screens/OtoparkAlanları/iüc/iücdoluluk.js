@@ -100,7 +100,7 @@ return(
      </View>
      </Modal>
   </View>
-  <View style={{position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection:'row-reverse',marginBottom:15}}>
+  <View style={{position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection:'row-reverse',marginBottom:'25%',marginRight:'5%'}}>
       <TouchableOpacity style={{alignItems: "center",
     backgroundColor: "#DDDDDD",
     padding: 10, borderRadius:55}} onPress={()=>{this.setState({show:true})}}>
