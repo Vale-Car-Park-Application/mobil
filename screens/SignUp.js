@@ -227,7 +227,7 @@ style={styles.input}></TextInput>
 
 
 
-<TouchableOpacity onPress={()=>this.props.navigation.navigate('Login')} style={{position:'absolute',right:355,top:15}}>
+<TouchableOpacity onPress={()=>this.props.navigation.navigate('Login')} style={{position:'absolute',right:'85%',top:'2%'}}>
     <Icon  name={Platform.OS === "ios" ? "ios-add" : "arrow-back-circle-outline"}
   //name={(this.state.hidePassword)?"eye-off-outlane:eye-outlane"}  şifre görünürlüğü açıp kapatma
   color="#002f6c"

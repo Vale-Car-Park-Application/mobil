@@ -46,7 +46,7 @@ return(
       
        <View style={{backgroundColor:'#ffcc80',alignItems:'center',width:'100%',height:'100%'}}>
 
-<TouchableOpacity onPress={()=>this.props.navigation.navigate('map')} style={{position:'absolute',right:350,top:-5}}>
+<TouchableOpacity onPress={()=>this.props.navigation.navigate('map')} style={{position:'absolute',right:'85%',top:'0%'}}>
     <Icon  name={Platform.OS === "ios" ? "ios-add" : "arrow-back-circle-outline"}
   //name={(this.state.hidePassword)?"eye-off-outlane:eye-outlane"}  şifre görünürlüğü açıp kapatma
   color="#c56000"

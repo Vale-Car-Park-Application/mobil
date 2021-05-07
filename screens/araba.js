@@ -70,27 +70,30 @@ export default class Araba extends Component {
                     onMessage={this.onMessage}
                 /> */}
         <View style={styles.container}>
-        <TouchableOpacity onPress={()=>alert(tell)} style={{position:'absolute',right:355,top:85}}>
+        {
+          //Telefon NUMARASI
+        /* <TouchableOpacity onPress={()=>alert(tell)} style={{position:'absolute',right:355,top:85}}>
     <Icon  name={Platform.OS === "ios" ? "ios-add" : "arrow-back-circle-outline"}
   //name={(this.state.hidePassword)?"eye-off-outlane:eye-outlane"}  şifre görünürlüğü açıp kapatma
   color="black"
   size={55}/>
-</TouchableOpacity>
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate('SignUp')} style={{position:'absolute',right:355,top:15}}>
+</TouchableOpacity> */
+}
+        <TouchableOpacity onPress={()=>this.props.navigation.navigate('SignUp')} style={{position:'absolute',right:'85%',top:'0%'}}>
     <Icon  name={Platform.OS === "ios" ? "ios-add" : "arrow-back-circle-outline"}
   //name={(this.state.hidePassword)?"eye-off-outlane:eye-outlane"}  şifre görünürlüğü açıp kapatma
   color="#8c0032"
   size={55}/>
-</TouchableOpacity>
+</TouchableOpacity> 
           <Image
             source={require('../assets/car5.png')}
             resizeMode="center"
             style={styles.image}
           />
-          <Text style={styles.textTitle}>Devam Edelim</Text>
-          <Text style={{  fontSize: 23,
+          
+          <Text style={{ marginBottom:25, fontSize: 35,
     fontFamily: 'Foundation',
-    color:'#bc477b'}}>Arabanızın;</Text>
+    color:'#bc477b'}}>Arabanızın</Text>
 
           <Formik
             initialValues={{
