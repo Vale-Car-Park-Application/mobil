@@ -94,7 +94,7 @@ return(
      <View style={{backgroundColor:"#ffffff",margin:50,padding:40,borderRadius:10,flex:1}}>
     <Image style={{width:160,height:400}} source={{uri: 'https://www.ciziktirik.com/wp-content/uploads/2018/03/otopark_5_84_arac.jpg'}}/>
     <TouchableOpacity style={{alignItems: "center",
-    backgroundColor: "#DDDDDD",
+    backgroundColor: "#b2ebf2",
     padding: 10, borderRadius:55}} onPress={()=>{this.setState({show:false})}}><Text>Geri dön</Text></TouchableOpacity>
      </View>
      </View>
@@ -102,9 +102,9 @@ return(
   </View>
   <View style={{position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection:'row-reverse',marginBottom:'25%',marginRight:'5%'}}>
       <TouchableOpacity style={{alignItems: "center",
-    backgroundColor: "#DDDDDD",
+    backgroundColor: "#b2ebf2",
     padding: 10, borderRadius:55}} onPress={()=>{this.setState({show:true})}}>
-        <Text>Krokiyi görüntüle</Text></TouchableOpacity></View>
+        <Text>2D Kroki</Text></TouchableOpacity></View>
 
 
 
