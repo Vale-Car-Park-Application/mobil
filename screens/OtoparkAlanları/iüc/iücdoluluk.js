@@ -91,15 +91,7 @@ return(
   <Modal
    transparent={true}
    visible={this.state.show}
-<<<<<<< HEAD
-   ><View style={{backgroundColor:"#000000aa",flex:1}}>
-     <View style={{backgroundColor:"#ffffff",margin:50,padding:40,borderRadius:10,flex:1}}>
-    <Image style={{width:160,height:400}} source={{uri: 'https://www.ciziktirik.com/wp-content/uploads/2018/03/otopark_5_84_arac.jpg'}}/>
-    <TouchableOpacity style={{alignItems: "center",
-    backgroundColor: "#b2ebf2",
-    padding: 10, borderRadius:55}} onPress={()=>{this.setState({show:false})}}><Text>Geri dön</Text></TouchableOpacity>
-     </View>
-=======
+
    >
     
      <View style={{backgroundColor:"#000000aa",flex:1,alignItems:'center'}}>
@@ -113,18 +105,14 @@ return(
     backgroundColor: "#00675b",
     padding: 10, borderRadius:55}} onPress={()=>{this.setState({show:false})}}><Text style={{fontSize:18,color:'white',fontWeight:'bold'}}>Geri dön</Text></TouchableOpacity>
      
->>>>>>> veli
+
      </View>
      </Modal>
      
   </View>
   <View style={{position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection:'row-reverse',marginBottom:'35%',marginRight:'5%'}}>
       <TouchableOpacity style={{alignItems: "center",
-<<<<<<< HEAD
-    backgroundColor: "#b2ebf2",
-    padding: 10, borderRadius:55}} onPress={()=>{this.setState({show:true})}}>
-        <Text>2D Kroki</Text></TouchableOpacity></View>
-=======
+
     backgroundColor: "#00675b",
     padding: 10, borderRadius:55}} onPress={()=>{this.setState({show:true})}}>
       <Icon  name={Platform.OS === "ios" ? "ios-add" : "map-outline"}
@@ -133,7 +121,7 @@ return(
         <Text> Otopark 2D</Text>
         </Icon>
         </TouchableOpacity></View>
->>>>>>> veli
+
 
 
 
