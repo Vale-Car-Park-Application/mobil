@@ -8,12 +8,14 @@ import {
     SafeAreaView,
     Touchable,
     Image,
+    Modal,
     FlatList,
     TouchableOpacity,
     ActivityIndicator,
     RefreshControl
    } from 'react-native';
    import axios from "axios";
+   import Icon from "react-native-vector-icons/Ionicons"
 
    export default class iücotoparkalanlar extends Component{
    constructor(props){
@@ -22,7 +24,8 @@ import {
 data:[],
 loading:true,
 isRefresh:false,
-page:1
+page:1,
+show:false
        }
    }
 
@@ -119,7 +122,7 @@ const {data,loading,isRefresh}=this.state
       <FlatList
       style={{padding:10,backgroundColor:'#f5f5f5'}}
       data={data}
-      numColumns={1}
+      numColumns={2}
       keyExtractor={(item,index)=>index.toString()}
       refreshControl={
           <RefreshControl
@@ -132,9 +135,9 @@ const {data,loading,isRefresh}=this.state
       ListEmptyComponent={()=><View><Text>Veri Yok</Text></View>}
      ListFooterComponent={this.renderFooter}
      ListFooterComponentStyle={{backgroundColor:'#280680',alignItems:'center'}}
-     ListHeaderComponent={()=><View><Text style={{color:'white',fontSize:35,fontWeight:'700'}}>Boş Alanlar</Text></View>}
-     ListHeaderComponentStyle={{height:80,justifyContent:'center',marginBottom:23,backgroundColor:'#81c784',alignItems:'center'}}
-     onEndReachedThreshold={1.1}
+     ListHeaderComponent={()=><View><Text style={{color:'#524c00',fontSize:35,fontWeight:'700'}}>Boş Alanlar</Text></View>}
+     ListHeaderComponentStyle={{height:80,justifyContent:'center',marginBottom:23,backgroundColor:'#d4e157',alignItems:'center'}}
+     onEndReachedThreshold={1.8}
      onEndReached={this.loadMore}
      ItemSeparatorComponent={this.rendeSeparator}
      >
@@ -143,6 +146,34 @@ const {data,loading,isRefresh}=this.state
 
       </FlatList>
    }
+   <Modal
+   transparent={true}
+   visible={this.state.show}
+   >
+    
+     <View style={{backgroundColor:"#000000aa",flex:1,alignItems:'center'}}>
+    
+     <ScrollView horizontal={true} style={{backgroundColor:"#ffffff",margin:30,padding:10,borderRadius:10,flex:1}}>
+    <Image style={{width:1000,height:'90%',}} source={{uri: 'https://www.ciziktirik.com/wp-content/uploads/2018/03/otopark_5_84_arac.jpg'}}/>
+   </ScrollView> 
+   <TouchableOpacity style={{alignItems: "center",justifyContent:'center',
+   width:200,
+   marginBottom:25,
+    backgroundColor: "#00675b",
+    padding: 10, borderRadius:55}} onPress={()=>{this.setState({show:false})}}><Text style={{fontSize:18,color:'white',fontWeight:'bold'}}>Geri dön</Text></TouchableOpacity>
+     
+     </View>
+     </Modal>
+   <View style={{position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection:'row-reverse',marginBottom:'35%',marginRight:'5%'}}>
+      <TouchableOpacity style={{alignItems: "center",
+    backgroundColor: "#00675b",
+    padding: 10, borderRadius:55}} onPress={()=>{this.setState({show:true})}}>
+      <Icon  name={Platform.OS === "ios" ? "ios-add" : "map-outline"}
+  color="white"
+  size={20}>
+        <Text> Otopark 2D</Text>
+        </Icon>
+        </TouchableOpacity></View>
       </View>
       
     )
@@ -165,10 +196,13 @@ const styles=StyleSheet.create({
        marginLeft:2,
        marginRight:2,
        paddingHorizontal:15,
+      maxWidth:'100%',
+      width:190,
+       height:100,
        padding:15,
        borderRadius:15,
        flexDirection:'row',
-       backgroundColor:'#97b498',
+       backgroundColor:'#a8b545',
        marginBottom:5,
        borderBottomColor:'#ddd'
    
