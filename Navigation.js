@@ -10,7 +10,7 @@ import map from './screens/map';
 import iücdoluluk from'./screens/OtoparkAlanları/iüc/iücdoluluk'
 import iücotoparkalanlar from'./screens/DinamikButton/iücotoparkalanlar'
 import timer from './screens/timer'
-import geldim from './screens/DinamikButton/geldim'
+
 const Stack = createStackNavigator();
 
 const Navigation = props => {
@@ -25,7 +25,7 @@ const Navigation = props => {
                 <Stack.Screen name="iücdoluluk" component={iücdoluluk} options={{headerShown: false}} />
                 <Stack.Screen name="iücotoparkalanlar" component={iücotoparkalanlar} options={{headerShown: false}} />
                 <Stack.Screen name="timer" component={timer} options={{headerShown: false}} />
-                <Stack.Screen name="geldim" component={geldim} options={{headerShown: false}} />
+            
               
             </Stack.Navigator>
         </NavigationContainer>

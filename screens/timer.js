@@ -1,21 +1,37 @@
 import CountDown from 'react-native-countdown-component';
 import React,{Component,useState}from 'react';
+import axios from "axios"
 import {View, StyleSheet,TextInput,Pressable, Text,Modal, TouchableOpacity,ScrollView, Image,Alert} from 'react-native';
+import {Linking} from 'react-native'
 export default class timer extends Component{
-  state = {
-    modalVisible: false,
-    modalVisible2:false,
-  };
+  constructor(props){
 
+    super(props);
+   this.state = {
+      modalVisible: false,
+      modalVisible2:false,
+      geldimi:''
+    };
+  
+  }
+ 
+  componentDidMount() {
+    axios.get(`https://api.stackexchange.com/2.2/users?page=4&order=desc&sort=reputation&site=stackoverflow`)
+    .then(res => {
+    this.setState({geldimi:true/*res.data.items[12].is_employee*/})
+    })
+    .catch(e => {console.log(e)});
+    
+  }
   setModalVisible = (visible) => {
     this.setState({ modalVisible: visible });
   }
-  setModalVisible2 = (visible) => {
-    this.setState({ modalVisible2: visible });
+  setModalVisible2 = (visible2) => {
+    this.setState({ modalVisible2: visible2 });
   }
 render() {
-  
-  const { modalVisible,modalVisible2 } = this.state;
+  const phonnumb='05523361923'
+  const { modalVisible,modalVisible2,geldimi } = this.state;
   const {BosYer} = this.props.route.params;
     return (
 <View style={{backgroundColor:'#439889',flex:1}}>
@@ -104,19 +120,32 @@ render() {
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text style={styles.modalText}>Geldiğinizi Onlaylıyor Musunuz ?</Text>
-              <Pressable
-                style={[styles.button3, styles.buttonClose1]}
-                onPress={() => this.setModalVisible2(!modalVisible2)}
-              >
-                <Text style={styles.textStyle2}>Hayır</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.button3, styles.buttonClose2]}
-                onPress={() =>this.props.navigation.navigate('geldim')}
-              >
-                <Text style={styles.textStyle2}>Evet</Text>
-              </Pressable>
+           { (geldimi) ?
+    <View style={styles.view2}>
+<Text style={styles.text2}>{BosYer} Alanında </Text><Text style={styles.text2}>Olduğunuz Onaylandı.</Text><Text style={styles.text2}>İyi Günler Dileriz</Text>
+<TouchableOpacity style={{alignItems: "center",justifyContent:'center',
+   width:200,
+   marginTop:50,
+    backgroundColor: "#00675b",
+    padding: 10, borderRadius:55}} onPress={()=>this.props.navigation.navigate('Login')}><Text style={{fontSize:18,color:'white',fontWeight:'bold'}}>Kapat</Text></TouchableOpacity>
+     
+</View>
+
+:
+<View style={styles.view1}>
+ <Text style={styles.text1}>{BosYer} alanı boş görünmekte.</Text><Text style={styles.text1}>Lütfen otopark ile iletişime geçiniz.</Text>
+ <TouchableOpacity onPress={()=>Linking.openURL(`tel:${phonnumb}`)
+}>
+<Text style={{paddingTop:40,textDecorationLine: 'underline',paddingBottom:40,fontSize:30,color:'blue',fontWeight:'700',fontFamily:'lucida grande'}}>Tel:0 552 336 19 23 </Text>
+</TouchableOpacity>
+ <TouchableOpacity style={{alignItems: "center",justifyContent:'center',
+   width:200,
+   marginTop:200,
+    backgroundColor: "#00675b",
+    padding: 10, borderRadius:55}} onPress={()=>this.setModalVisible2(!modalVisible2)}><Text style={{fontSize:18,color:'white',fontWeight:'bold'}}>Geri Dön</Text></TouchableOpacity>
+     
+</View>}
+           
             </View>
           </View>
         </Modal>
@@ -257,5 +286,23 @@ const styles = StyleSheet.create({
     fontSize:20,
     textAlign: "center",
     color:'white',fontWeight:'bold'
+  },   view1:{
+    backgroundColor:'#ab000d',alignItems:'center',justifyContent:'center',flex:1
+ },
+ view2:{
+    backgroundColor:'#00600f',alignItems:'center',justifyContent:'center',flex:1
+ }
+ ,
+text1: {
+    alignItems:'center',
+    justifyContent: 'center',
+ fontWeight:'bold',
+ color:'white',
+ fontSize:35
+},
+text2: {
+    fontWeight:'bold',
+    color:'white',
+    fontSize:35
   }
   })
