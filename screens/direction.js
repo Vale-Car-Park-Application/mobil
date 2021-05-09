@@ -25,14 +25,12 @@ import MapView, {
 } from 'react-native-maps';
 //import MapView from "react-native-map-clustering";
 import MapViewDirections from 'react-native-maps-directions';
-export default class map extends Component {
+export default class direction extends Component {
   constructor(props) {
     super(props);
     this.state = {
       latitude: '',
       longitude: '',
-      longitude2:'',
-      latitude2:''
     };
   }
 
@@ -73,19 +71,18 @@ export default class map extends Component {
 
   render() {
     // KONUM ALMA
-    const {token,profile} = this.props.route.params;
-    const {latitude, longitude,latitude2,longitude2} = this.state;
+    const {latitude, longitude} = this.state;
 
     return (
       <View style={styles.container}>
     
         <View style={{width: '100%', height: 48,backgroundColor:'#efebe7'}}>
           <View style={{alignItems: 'center',justifyContent: 'center'}}>
-          <Text style={{fontSize:30,color:'green'}}>Otopark Seçiniz</Text>
+          <Text style={{fontSize:30,color:'green'}}>Yol Tarifi</Text>
           </View>
           
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Login')}
+            onPress={() => this.props.navigation.navigate('timer')}
             style={{position: 'absolute', right: '85%', top: '-10%'}}>
             <Icon
               name={
@@ -119,16 +116,16 @@ export default class map extends Component {
           //         }}
           //         showsUserLocation={true}
         >
-          {/* <MapViewDirections
+          <MapViewDirections
             origin={{latitude:40.99449778084676,longitude:28.728089555825388}}
             destination={{latitude:40.98449778084676,longitude: 28.788089555825388}}
             apikey={'AIzaSyDQLdDbN44L1Im9dAHu06Fm_nt0qL5qxeA'}
-            strokeWidth={2}
+            strokeWidth={3}
             strokeColor="blue"
            
            
            
-          /> */}
+          />
           <Marker
             pinColor={'blue'}
             title={'KONUMUNUZ'}
@@ -143,7 +140,7 @@ export default class map extends Component {
           />
 
           <Marker
-            onPress={() => this.props.navigation.navigate('iücdoluluk')}
+           
             pinColor={'green'}
             title={'İÜC PARK'}
             opacity={1.5}
@@ -157,14 +154,7 @@ export default class map extends Component {
           />
 
           <Marker
-            onPress={() =>
-              Alert.alert(
-                'AÇIK Otopark',
-
-                'Otopark boş alan sayısı:19',
-                [{text: 'Otopark Doluluk Oranı :%52'}, {text: 'KAPAT'}],
-              )
-            }
+           
             draggable={true}
             onDrag={() => alert('kaydırma')}
             pinColor={'green'}
@@ -180,14 +170,7 @@ export default class map extends Component {
           />
 
           <Marker
-            onPress={() =>
-              Alert.alert(
-                'KAPALI Otopark',
-
-                'Otopark boş alan sayısı:38',
-                [{text: 'Otopark Doluluk Oranı :%35'}, {text: 'KAPAT'}],
-              )
-            }
+           
             draggable={true}
             onDrag={() => alert('kaydırma')}
             pinColor={'green'}
@@ -203,14 +186,7 @@ export default class map extends Component {
           />
 
           <Marker
-            onPress={() =>
-              Alert.alert(
-                'KAPALI Otopark',
-
-                'Otopark boş alan sayısı:8',
-                [{text: 'Otopark Doluluk Oranı :%88'}, {text: 'KAPAT'}],
-              )
-            }
+         
             draggable={true}
             onDrag={() => alert('kaydırma')}
             pinColor={'green'}
@@ -226,14 +202,7 @@ export default class map extends Component {
           />
 
           <Marker
-            onPress={() =>
-              Alert.alert(
-                'AÇIK Otopark',
-
-                'Otopark boş alan sayısı:6',
-                [{text: 'Otopark Doluluk Oranı :%85'}, {text: 'KAPAT'}],
-              )
-            }
+          
             draggable={true}
             onDrag={() => alert('kaydırma')}
             pinColor={'green'}
@@ -249,14 +218,7 @@ export default class map extends Component {
           />
 
           <Polygon
-            onPress={() =>
-              Alert.alert(
-                'İÜC Açık Otoparkı',
-
-                'Otopark Boş Alan Sayısı : 12',
-                [{text: 'Otopark Doluluk Oranı : %62'}, {text: 'KAPAT'}],
-              )
-            }
+          
             strKAPATeWidth={3}
             strKAPATeColor={'green'}
             fillColor={'#859A85'}
@@ -270,14 +232,7 @@ export default class map extends Component {
           />
 
           <Polygon
-            onPress={() =>
-              Alert.alert(
-                'Ulaştırma Açık Otoparkı',
-
-                'Otopark Boş Alan Sayısı : 19',
-                [{text: 'Otopark Doluluk Oranı : %52'}, {text: 'KAPAT'}],
-              )
-            }
+        
             strKAPATeWidth={3}
             strKAPATeColor={'green'}
             fillColor={'#859A85'}
@@ -291,14 +246,8 @@ export default class map extends Component {
           />
 
           <Polygon
-            onPress={() =>
-              Alert.alert(
-                'Hilton Otel Kapalı Otoparkı',
-
-                'Otopark Boş Alan Sayısı : 38',
-                [{text: 'Otopark Doluluk Oranı : %35'}, {text: 'KAPAT'}],
-              )
-            }
+           
+         
             strKAPATeWidth={3}
             strKAPATeColor={'green'}
             fillColor={'#859A85'}
@@ -313,14 +262,7 @@ export default class map extends Component {
             ]}
           />
           <Polygon
-            onPress={() =>
-              Alert.alert(
-                'Borusan BMW Kapalı Otoparkı',
-
-                'Otopark Boş Alan Sayısı : 8',
-                [{text: 'Otopark Doluluk Oranı : %88'}, {text: 'KAPAT'}],
-              )
-            }
+        
             strKAPATeWidth={3}
             strKAPATeColor={'green'}
             fillColor={'#859A85'}
@@ -334,14 +276,7 @@ export default class map extends Component {
             ]}
           />
           <Polygon
-            onPress={() =>
-              Alert.alert(
-                'Avcılar Belediyesi Açık Otoparkı',
-
-                'Otopark Boş Alan Sayısı : 4',
-                [{text: 'Otopark Doluluk Oranı : %85'}, {text: 'KAPAT'}],
-              )
-            }
+        
             strKAPATeWidth={3}
             strKAPATeColor={'green'}
             fillColor={'#859A85'}

@@ -3,6 +3,7 @@ import React,{Component,useState}from 'react';
 import axios from "axios"
 import {View, StyleSheet,TextInput,Pressable, Text,Modal, TouchableOpacity,ScrollView, Image,Alert} from 'react-native';
 import {Linking} from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons';
 export default class timer extends Component{
   constructor(props){
 
@@ -10,6 +11,7 @@ export default class timer extends Component{
    this.state = {
       modalVisible: false,
       modalVisible2:false,
+      modalVisible3:false,
       geldimi:''
     };
   
@@ -26,15 +28,18 @@ export default class timer extends Component{
   setModalVisible = (visible) => {
     this.setState({ modalVisible: visible });
   }
-  setModalVisible2 = (visible2) => {
-    this.setState({ modalVisible2: visible2 });
+  setModalVisible2 = (visible) => {
+    this.setState({ modalVisible2: visible });
+  }
+  setModalVisible3 = (visible) => {
+    this.setState({ modalVisible3: visible });
   }
 render() {
   const phonnumb='05523361923'
-  const { modalVisible,modalVisible2,geldimi } = this.state;
+  const { modalVisible,modalVisible2,geldimi,modalVisible3 } = this.state;
   const {BosYer} = this.props.route.params;
     return (
-<View style={{backgroundColor:'#439889',flex:1}}>
+<ScrollView style={{backgroundColor:'#439889',flex:1}}>
 
   <View style={{alignItems:'center'}}>
     <Text style={styles.textTitle}>
@@ -106,8 +111,17 @@ render() {
                     <Text style={{color: '#00695c',fontWeight: 'bold',fontSize: 20}}>Geldim</Text>
                   </TouchableOpacity>
                 </View>
-
-
+                <View style={{position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection:'row-reverse',marginBottom:'55%',marginRight:'5%'}}>
+      <TouchableOpacity style={{alignItems: "center",
+    backgroundColor: "#b2fef7",
+    padding: 10, borderRadius:55}} onPress={()=>this.setModalVisible3(true)}>
+      <Icon  name={Platform.OS === "ios" ? "ios-add" : "map-outline"}
+  color="#003d33"
+  size={20}>
+        <Text > Yol Tarifi</Text>
+        </Icon>
+        </TouchableOpacity></View>
+              
                <View>
                <Modal
           animationType="slide"
@@ -180,7 +194,39 @@ render() {
           </View>
         </Modal>
                </View>
-</View>
+
+
+
+               <View>
+               <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible3}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            this.setModalVisible3(!modalVisible3);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Yol tarifine gitmek istiyor musunuz?</Text>
+              <Pressable
+                style={[styles.button3, styles.buttonClose1]}
+                onPress={() => this.setModalVisible3(!modalVisible3)}
+              >
+                <Text style={styles.textStyle2}>Hayır</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.button3, styles.buttonClose2]}
+                onPress={() =>{this.props.navigation.navigate('direction'),this.setModalVisible3(!modalVisible3)}}
+              >
+                <Text style={styles.textStyle2}>Evet</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
+               </View>
+</ScrollView>
 
 
 
