@@ -93,7 +93,7 @@ export default class Araba extends Component {
           
           <Text style={{ marginBottom:25, fontSize: 35,
     fontFamily: 'Foundation',
-    color:'#bc477b'}}>Arabanızın</Text>
+    color:'#bc477b'}}>Aracınızın</Text>
 
           <Formik
             initialValues={{
