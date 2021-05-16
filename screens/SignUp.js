@@ -9,6 +9,8 @@ import {Formik} from "formik";
 import {observable} from "mobx";
 import {observer,inject} from "mobx-react"; 
 import {API_URL} from '../config/system'
+import LinearGradient from 'react-native-linear-gradient';
+
 import axios from "axios"
 export default class SignUp extends Component{
     constructor(props){
@@ -49,6 +51,7 @@ export default class SignUp extends Component{
     return (
         
         <ScrollView style={{backgroundColor: '#b2dfdb'}}>
+<LinearGradient colors={['#82ada9','#b2dfdb' ]} style={{flex:1}}>
 
 
 
@@ -257,7 +260,7 @@ style={styles.input}></TextInput>
 
                 </View>
             </View>
-            
+            </LinearGradient>
         </ScrollView>    
     );
 };}

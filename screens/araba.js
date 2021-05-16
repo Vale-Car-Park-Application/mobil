@@ -18,6 +18,8 @@ import {observable} from 'mobx';
 import {observer, inject} from 'mobx-react';
 import {API_URL} from '../config/system';
 import axios from 'axios';
+import LinearGradient from 'react-native-linear-gradient';
+
 // import ConfirmGoogleCaptcha from 'react-native-google-recaptcha-v2';
 // const siteKey = 'AIzaSyAaUHSs3RnNqnjURZMpCAIOBD4oHrcTNh4';
 // const baseUrl = 'base_url';
@@ -61,7 +63,9 @@ export default class Araba extends Component {
 //         }
 //     };
     return (
+  
       <ScrollView style={{backgroundColor: '#d7ccc8'}}>
+           <LinearGradient colors={['#a69b97','#d7ccc8' ]} style={{flex:1}}>
         {/* <ConfirmGoogleCaptcha
                     ref={_ref => this.captchaForm = _ref}
                     siteKey={siteKey}
@@ -315,6 +319,7 @@ export default class Araba extends Component {
             </Text>
           </View>
         </View>
+        </LinearGradient>
       </ScrollView>
     );
   }

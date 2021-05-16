@@ -16,7 +16,7 @@ import {
    } from 'react-native';
    import axios from "axios";
    import Icon from "react-native-vector-icons/Ionicons"
-
+   import LinearGradient from 'react-native-linear-gradient';
    export default class iücotoparkalanlar extends Component{
    constructor(props){
        super(props)
@@ -67,9 +67,9 @@ alert(error)
 _renderItem=({item})=>{
 
 return(
-    <TouchableOpacity style={{backgroundColor:'#e0e0e0'}} onPress={()=>this.props.navigation.navigate('timer',{BosYer:item.display_name})}>
-        
-    <View style={styles.card}>
+    <TouchableOpacity style={{backgroundColor:'#e0e0e0',borderRadius:15}} onPress={()=>this.props.navigation.navigate('timer',{BosYer:item.display_name})}>
+         <LinearGradient colors={['#00ad00', '#00d100','#00ad00',]}style={styles.card} >
+  
        {/* <TouchableOpacity onPress={()=>Linking.openURL(item.profile_image)}>
      
       <Image  style={styles.avatar} source={{uri:item.profile_image}}/>
@@ -78,10 +78,12 @@ return(
       <View style={{marginLeft:15,justifyContent:'center',borderRadius:15}}> 
      
       <Text style={{color:'white',fontSize:25,fontWeight:'700'}}>{item.display_name}</Text>
+    
      {/* <Text>{item.location}</Text> */}
       </View>
      
-    </View>
+    
+    </LinearGradient>
     </TouchableOpacity>
 )
 }
@@ -134,9 +136,9 @@ const {data,loading,isRefresh}=this.state
       renderItem={this._renderItem}
       ListEmptyComponent={()=><View><Text>Veri Yok</Text></View>}
      ListFooterComponent={this.renderFooter}
-     ListFooterComponentStyle={{backgroundColor:'#280680',alignItems:'center'}}
-     ListHeaderComponent={()=><View><Text style={{color:'#524c00',fontSize:35,fontWeight:'700'}}>Boş Alanlar</Text></View>}
-     ListHeaderComponentStyle={{height:80,justifyContent:'center',marginBottom:23,backgroundColor:'#d4e157',alignItems:'center'}}
+     ListFooterComponentStyle={{backgroundColor:'#5d9371',alignItems:'center'}}
+     ListHeaderComponent={()=><View><Text style={{color:'white',fontSize:35,fontWeight:'700'}}>Boş Alanlar</Text></View>}
+     ListHeaderComponentStyle={{backgroundColor:'#226613',borderRadius:15,height:80,justifyContent:'center',marginBottom:23,alignItems:'center'}}
      onEndReachedThreshold={1.8}
      onEndReached={this.loadMore}
      ItemSeparatorComponent={this.rendeSeparator}
@@ -166,12 +168,12 @@ const {data,loading,isRefresh}=this.state
      </Modal>
    <View style={{position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection:'row-reverse',marginBottom:'35%',marginRight:'5%'}}>
       <TouchableOpacity style={{alignItems: "center",
-    backgroundColor: "#00675b",
+    backgroundColor: "#6cbac4",
     padding: 10, borderRadius:55}} onPress={()=>{this.setState({show:true})}}>
       <Icon  name={Platform.OS === "ios" ? "ios-add" : "map-outline"}
-  color="white"
+  color="#1f5c63"
   size={20}>
-        <Text> Otopark 2D</Text>
+        <Text style={{fontWeight:'700'}}> Otopark 2D</Text>
         </Icon>
         </TouchableOpacity></View>
       </View>
@@ -199,10 +201,10 @@ const styles=StyleSheet.create({
       maxWidth:'100%',
       width:190,
        height:100,
-       padding:15,
-       borderRadius:15,
+       padding:20,
+       borderRadius:55,
        flexDirection:'row',
-       backgroundColor:'#a8b545',
+     //  backgroundColor:'#81a5ff',
        marginBottom:5,
        borderBottomColor:'#ddd'
    

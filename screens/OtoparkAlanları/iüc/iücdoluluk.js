@@ -15,7 +15,7 @@ import {
  } from 'react-native';
  import axios from "axios"
  import Icon from "react-native-vector-icons/Ionicons"
- 
+ import LinearGradient from 'react-native-linear-gradient';
 
  export default class iücdoluluk extends Component{
  

@@ -3,7 +3,9 @@ import React,{Component,useState}from 'react';
 import axios from "axios"
 import {View, StyleSheet,TextInput,Pressable, Text,Modal, TouchableOpacity,ScrollView, Image,Alert} from 'react-native';
 import {Linking} from 'react-native'
+import getDirections from 'react-native-google-maps-directions'
 import Icon from 'react-native-vector-icons/Ionicons';
+import LinearGradient from 'react-native-linear-gradient';
 export default class timer extends Component{
   constructor(props){
 
@@ -17,10 +19,35 @@ export default class timer extends Component{
   
   }
  
+  handleGetDirections = () => {
+    const data = {
+       source: {
+        latitude: 40.99449778084676,
+        longitude: 28.728089555825388
+      },
+      destination: {
+        latitude: 40.98449778084676,
+        longitude:28.788089555825388
+      },
+      params: [
+        {
+          key: "travelmode",
+          value: "driving"        // may be "walking", "bicycling" or "transit" as well
+        },
+        {
+          key: "dir_action",
+          value: "navigate"       // this instantly initializes navigation using the given travel mode
+        }
+      ],
+
+    }
+ 
+    getDirections(data)
+  }
   componentDidMount() {
     axios.get(`https://api.stackexchange.com/2.2/users?page=4&order=desc&sort=reputation&site=stackoverflow`)
     .then(res => {
-    this.setState({geldimi:true/*res.data.items[12].is_employee*/})
+    this.setState({geldimi:false/*res.data.items[12].is_employee*/})
     })
     .catch(e => {console.log(e)});
     
@@ -39,7 +66,8 @@ render() {
   const { modalVisible,modalVisible2,geldimi,modalVisible3 } = this.state;
   const {BosYer} = this.props.route.params;
     return (
-<ScrollView style={{backgroundColor:'#439889',flex:1}}>
+
+<LinearGradient colors={['#7e99bc', '#94b4dd']} style={{flex:1}}>
 
   <View style={{alignItems:'center'}}>
     <Text style={styles.textTitle}>
@@ -111,15 +139,17 @@ render() {
                     <Text style={{color: '#00695c',fontWeight: 'bold',fontSize: 20}}>Geldim</Text>
                   </TouchableOpacity>
                 </View>
-                <View style={{position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection:'row-reverse',marginBottom:'55%',marginRight:'5%'}}>
+                <View style={{position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection:'row-reverse',marginBottom:'48%',marginRight:'3%'}}>
       <TouchableOpacity style={{alignItems: "center",
-    backgroundColor: "#b2fef7",
+      
+    backgroundColor: "#004e8e",
     padding: 10, borderRadius:55}} onPress={()=>this.setModalVisible3(true)}>
-      <Icon  name={Platform.OS === "ios" ? "ios-add" : "map-outline"}
-  color="#003d33"
-  size={20}>
-        <Text > Yol Tarifi</Text>
+      <Icon  name={Platform.OS === "ios" ? "ios-add" : "compass-outline"}
+  color="#bbdefb"
+  size={40}>
         </Icon>
+        
+        <Text style={{justifyContent: 'center',fontSize:15,fontWeight:'bold',color:'#bbdefb'}}> Ulaşım</Text>
         </TouchableOpacity></View>
               
                <View>
@@ -135,7 +165,7 @@ render() {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
            { (geldimi) ?
-    <View style={styles.view2}>
+  <LinearGradient colors={['#008400', '#03d600','green']} style={styles.view2}>
 <Text style={styles.text2}>{BosYer} Alanında </Text><Text style={styles.text2}>Olduğunuz Onaylandı.</Text><Text style={styles.text2}>İyi Günler Dileriz</Text>
 <TouchableOpacity style={{alignItems: "center",justifyContent:'center',
    width:200,
@@ -143,10 +173,10 @@ render() {
     backgroundColor: "#00675b",
     padding: 10, borderRadius:55}} onPress={()=>this.props.navigation.navigate('Login')}><Text style={{fontSize:18,color:'white',fontWeight:'bold'}}>Kapat</Text></TouchableOpacity>
      
-</View>
+     </LinearGradient>
 
 :
-<View style={styles.view1}>
+<LinearGradient colors={['#d30000', '#e53935','red']} style={styles.view1}>
  <Text style={styles.text1}>{BosYer} alanı boş görünmekte.</Text><Text style={styles.text1}>Lütfen otopark ile iletişime geçiniz.</Text>
  <TouchableOpacity onPress={()=>Linking.openURL(`tel:${phonnumb}`)
 }>
@@ -158,7 +188,7 @@ render() {
     backgroundColor: "#00675b",
     padding: 10, borderRadius:55}} onPress={()=>this.setModalVisible2(!modalVisible2)}><Text style={{fontSize:18,color:'white',fontWeight:'bold'}}>Geri Dön</Text></TouchableOpacity>
      
-</View>}
+     </LinearGradient>}
            
             </View>
           </View>
@@ -218,7 +248,7 @@ render() {
               </Pressable>
               <Pressable
                 style={[styles.button3, styles.buttonClose2]}
-                onPress={() =>{this.props.navigation.navigate('direction'),this.setModalVisible3(!modalVisible3)}}
+                onPress={() =>{this.handleGetDirections(), this.setModalVisible3(!modalVisible3)}}
               >
                 <Text style={styles.textStyle2}>Evet</Text>
               </Pressable>
@@ -226,7 +256,7 @@ render() {
           </View>
         </Modal>
                </View>
-</ScrollView>
+               </LinearGradient>
 
 
 
@@ -283,7 +313,7 @@ const styles = StyleSheet.create({
       fontSize: 21,
       fontFamily: 'monospace',
     fontWeight:'bold',
-      color:'#002171',
+      color:'#283b50',
     
   },
   centeredView: {
@@ -291,14 +321,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 22,
+    marginBottom:25
   },
   modalView: {
-    margin: 20,
-    backgroundColor: "#004c40",
+    
+    backgroundColor: "#687e9b",
     borderRadius: 20,
-    padding: 35,
+    padding: 15,
     alignItems: "center",
-    shadowColor: "#000",
+    shadowColor: "blue",
     shadowOffset: {
       width: 0,
       height: 2
