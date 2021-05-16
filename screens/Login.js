@@ -19,6 +19,8 @@ import * as Yup from 'yup';
 import {observable} from 'mobx';
 import {observer, inject} from 'mobx-react';
 import {Touchable} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+
 import {API_URL} from '../config/system';
 import axios from 'axios';
 
@@ -70,15 +72,16 @@ export default class Login extends Component {
   render() {
   
     return (
-      <ScrollView style={{backgroundColor: '#00bfa5'}}>
-        <View style={styles.container}>
+      
+        <LinearGradient colors={['#006978', '#5d99c6', 'white']}style={styles.container}>
+       
           <Image
-            source={require('../assets/car4.png')}
+            source={require('../assets/vale1.png')}
             resizeMode="center"
             style={styles.image}
           />
 
-          <Text style={(styles.textBody, {color: '#003300', fontSize: 25})}>
+          <Text style={(styles.textBody, {color: 'white', fontSize: 25})}>
             GİRİŞ YAP
           </Text>
           <View style={{marginTop: 20}} />
@@ -114,7 +117,7 @@ export default class Login extends Component {
                   <Icon
                     name={Platform.OS === 'ios' ? 'ios-add' : 'mail-outline'}
                     //name={(this.state.hidePassword)?"eye-off-outlane:eye-outlane"}  şifre görünürlüğü açıp kapatma
-                    color="#087f23"
+                    color="#003e47s"
                     size={30}
                   />
                 </View>
@@ -138,7 +141,7 @@ export default class Login extends Component {
                           : 'eye-outline'
                       }
                       //name={(this.state.hidePassword)?"eye-off-outlane:eye-outlane"}  şifre görünürlüğü açıp kapatma
-                      color="#087f23"
+                      color="#003e47"
                       size={30}
                     />
                   </TouchableOpacity>
@@ -151,7 +154,7 @@ export default class Login extends Component {
                   <TouchableOpacity
                     onPress={handleSubmit}
                     style={styles.button}>
-                    <Text style={{color: '#003300', fontSize: 20}}>GİRİŞ</Text>
+                    <Text style={{color: 'white', fontSize: 20}}>GİRİŞ</Text>
                   </TouchableOpacity>
                 </View>
 
@@ -165,7 +168,7 @@ export default class Login extends Component {
                     onPress={() => this.props.navigation.navigate('forgot')}>
                     <Text
                       style={{
-                        color: '#ab000d',
+                        color: '#c62828',
                         fontSize: 17,
                         fontWeight: '700',
                       }}>
@@ -182,14 +185,14 @@ export default class Login extends Component {
           <View style={{alignItems: 'center'}}>
           <TouchableOpacity onPress={()=>alert("Facebook'la Bağlanıyorsunuz")} style={{position:'absolute',right:5,top:15}}>
           <Image
-            source={require('../assets/face.png')}
+            source={require('../assets/face2.png')}
             resizeMode="center"
-            style={{marginTop:-7,width:80,height:65}}
+            style={{marginTop:-7,width:85,height:68}}
           />
 </TouchableOpacity>
 <TouchableOpacity onPress={()=>alert("Google'la Bağlanıyorsunuz")} style={{position:'absolute',right:-85,top:15}}>
 <Image
-            source={require('../assets/google.png')}
+            source={require('../assets/google2.png')}
             resizeMode="center"
             style={{width:65,height:50}}
           />
@@ -200,13 +203,14 @@ export default class Login extends Component {
             <Text style={styles.textBody}>Hesabın Yok mu ? </Text>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate('SignUp')}>
-              <Text style={[styles.textBody, {color: '#08467C'}]}>
+              <Text style={[styles.textBody, {color: '#00c6ad'}]}>
                 Hesap Oluştur
               </Text>
             </TouchableOpacity>
           </View>
-        </View>
-      </ScrollView>
+        
+        </LinearGradient>
+   
     );
   }
 }
@@ -217,9 +221,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
+  
     resizeMode: 'contain',
     width: '75%',
-    height: 150,
+    height: 165,
     marginVertical: 10,
   },
   textTitle: {
@@ -232,7 +237,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 15,
     marginBottom: 15,
-    color: '#003300',
+    color: '#006978',
   },
 
   input: {
@@ -246,7 +251,7 @@ const styles = StyleSheet.create({
   },
   item: {marginBottom: 20, alignItems: 'center'},
   button: {
-    backgroundColor: '#5df2d6',
+    backgroundColor: '#008ea3',
     borderRadius: 15,
     paddingVertical: 15,
     alignItems: 'center',
