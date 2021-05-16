@@ -17,6 +17,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Geolocation from '@react-native-community/geolocation';
+import axios from 'axios';
 import MapView, {
   PROVIDER_GOOGLE,
   Marker,
@@ -31,12 +32,40 @@ export default class map extends Component {
     this.state = {
       latitude: '',
       longitude: '',
-      longitude2:'',
-      latitude2:''
+      carParks: [{
+        _id:"asd",
+        latitude:20,
+        longitude:10,
+        contact:"asda",
+        carparkAttendant:"sakmd",
+        carparkName:"sadas"
+      }],
+      profile1:{},
+      token1:'',
+      
     };
   }
 
   componentDidMount() {
+    const {token,profile} = this.props.route.params;
+    this.setState({profile1:profile})
+    this.setState({token1:token})
+    axios.get(`https://ieeevale.com/api/carparks`,{
+      headers:{
+        'authorization':token
+      }
+    })
+  .then(res => {
+  // this.setState({bosyer:res.data.items[12].reputation_change_day})
+  // this.setState({doluluk:res.data.items[11].accept_rate})
+ console.log(res.data);
+ this.setState({carParks:res.data.data});
+ console.log(this.state.carParks[0].latitude); 
+ this.setState({carpark1:res.data.data[0]});
+})
+  .catch(e => {console.log(e)});
+  
+
     // if(Platform.OS=='android'){
     //     const response = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,{
     //   'title':'MapsAndGeo',
@@ -73,9 +102,8 @@ export default class map extends Component {
 
   render() {
     // KONUM ALMA
-    const {token,profile} = this.props.route.params;
-    const {latitude, longitude,latitude2,longitude2} = this.state;
-
+    const {latitude, longitude, carParks, carPark1,token1,profile1} = this.state;
+    
     return (
       <View style={styles.container}>
     
@@ -143,14 +171,14 @@ export default class map extends Component {
           />
 
           <Marker
-            onPress={() => this.props.navigation.navigate('iücdoluluk')}
+            onPress={() => this.props.navigation.navigate('iücdoluluk',{profile1, token1, carPark:carParks[0]})}
             pinColor={'green'}
             title={'İÜC PARK'}
             opacity={1.5}
             description={'Otopark'}
             coordinate={{
-              latitude: 40.99449778084676,
-              longitude: 28.728089555825388,
+              latitude: carParks[0].latitude,
+              longitude: carParks[0].longitude,
               latitudeDelta: 0.115,
               longitudeDelta: 0.1121,
             }}

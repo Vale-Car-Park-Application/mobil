@@ -25,28 +25,37 @@ import {
 
     super(props)
     this.state={
- doluluk:'',
- bosyer:'',
+ doluluk:'20',
+ bosyer:'30',
+ token2:'',
+ profile2:{},
+ carPark2:{},
  show:false
     }
 }
 
   componentDidMount() {
-    axios.get(`https://api.stackexchange.com/2.2/users?page=1&order=desc&sort=reputation&site=stackoverflow`)
-    .then(res => {
-    this.setState({bosyer:res.data.items[12].reputation_change_day})
-    this.setState({doluluk:res.data.items[11].accept_rate})
+    const {carPark,token1,profile1} = this.props.route.params;
+this.setState({token2:token1})
+this.setState({profile2:profile1})
+    axios.get(`https://ieeevale.com/api/carparks/${carPark._id}`,{
+      headers:{
+        'authorization':token1
+      }
     })
-    .catch(e => {console.log(e)});
-    
+  .then(res => {
+ console.log(JSON.stringify(res.data.data.areas));
+ this.setState({carPark2:res.data.data});
+ //console.log(this.state.carPark2)
+})
+  .catch(e => {console.log(e)});
   }
-
   render(){
 
- 
-
+ const {carPark2,profile2,token2}=this.state
+ //console.log(carPark2)}
 return(
-      
+     
        <View style={{backgroundColor:'#80cbc4',alignItems:'center',width:'100%',height:'100%'}}>
 
 <TouchableOpacity onPress={()=>this.props.navigation.navigate('map')} style={{position:'absolute',right:'85%',top:'0%'}}>
@@ -70,7 +79,7 @@ return(
 </Text>
 <Text style={{color:'#00897b',fontSize:30 ,marginTop:35,paddingTop:35}}>Rezervasyon İşlemi İçin </Text>
 <Text style={{color:'#00897b',fontSize:30 ,marginBottom:55,paddingTop:35}}> Devam Ediniz</Text>
-<TouchableOpacity  style={{paddingBottom:20,paddingTop:35}}onPress={()=>this.props.navigation.navigate('iücotoparkalanlar')
+<TouchableOpacity  style={{paddingBottom:20,paddingTop:35}}onPress={()=>this.props.navigation.navigate('iücotoparkalanlar',{carPark2,profile2,token2})
   /*this.props.navigation.navigate('iücRez')*/
   }>
     <Icon  name={Platform.OS === "ios" ? "ios-add" : "create-outline"}

@@ -64,7 +64,8 @@ export default class timer extends Component{
 render() {
   const phonnumb='05523361923'
   const { modalVisible,modalVisible2,geldimi,modalVisible3 } = this.state;
-  const {BosYer} = this.props.route.params;
+  const {BosYer,carPark2,token2,profile2} = this.props.route.params;
+
     return (
 
 <LinearGradient colors={['#7e99bc', '#94b4dd']} style={{flex:1}}>

@@ -25,49 +25,50 @@ data:[],
 loading:true,
 isRefresh:false,
 page:1,
-show:false
+show:false,
+
        }
    }
 
 componentDidMount(){
+    const {carPark2,token2,profile2} = this.props.route.params;
+    this.setState({carPark3:carPark2})
     // axios.get(`https://jsonplaceholder.typicode.com/posts`)
     // .then((res)=>{
     //     this.setState({data:res.data})
     //     console.log(res.data)
     // })
     // .catch((e)=>console.log(e))
+   // console.log(token2)
     this.fetchUser()
 }
 
  
 //Sayfa Yenileme
 fetchUser(page=1,isLoadMore=false){
-
-   const url=`https://api.stackexchange.com//2.2/users?page=${page}&order=desc&sort=reputation&site=stackoverflow`
-   //const url=`http://10.0.2.2:3000/items`;
-axios.get(url).then((res)=>{
-    // const i=0
-    // for (let i=0;i<30;i++){
-    //    const deger= res.data.items[i].profile_image
-    // }
-   
-    
-   
-    
-    
+    const {carPark2,token2,profile2} = this.props.route.params;
     const{data}=this.state
-    let newData=(isLoadMore) ? data.concat(res.data.items) : res.data.items
+    let newData=(isLoadMore) ? data.concat(carPark2.areas) : carPark2.areas
 this.setState({page,data:newData,loading:false,isRefresh:false})
-})
-.catch(error=>{
-alert(error)
-})
 }
 
 _renderItem=({item})=>{
+    const {carPark2,token2,profile2} = this.props.route.params;
+
 
 return(
-    <TouchableOpacity style={{backgroundColor:'#e0e0e0',borderRadius:15}} onPress={()=>this.props.navigation.navigate('timer',{BosYer:item.display_name})}>
+    <TouchableOpacity style={{backgroundColor:'#e0e0e0',borderRadius:15}} onPress={()=>{
+        item.reservationState = true;
+        axios.put(`https://ieeevale.com/api/carparks/${carPark2._id}`,{
+            headers:{
+              'authorization':token2
+            }
+          },item).then(res => {
+            this.props.navigation.navigate('timer',{carPark2,profile2,token2,BosYer:item.areaName})
+        }).catch((err) => {
+            alert(err)
+        })}
+        }>
          <LinearGradient colors={['#00ad00', '#00d100','#00ad00',]}style={styles.card} >
   
        {/* <TouchableOpacity onPress={()=>Linking.openURL(item.profile_image)}>
@@ -77,7 +78,7 @@ return(
       </TouchableOpacity> */}
       <View style={{marginLeft:15,justifyContent:'center',borderRadius:15}}> 
      
-      <Text style={{color:'white',fontSize:25,fontWeight:'700'}}>{item.display_name}</Text>
+      <Text style={{color:'white',fontSize:25,fontWeight:'700'}}>{item.areaName}</Text>
     
      {/* <Text>{item.location}</Text> */}
       </View>
@@ -95,7 +96,7 @@ onRefresh=()=>{
 
 loadMore=()=>{
    const {page}=this.state
-   var newPage=page+1
+   var newPage=page
    this.fetchUser(newPage,true)
 }
 
@@ -110,6 +111,7 @@ return <ActivityIndicator style={{color:'#80cbc4'}}/>
 
 
 render (){
+    const {carPark2,token2,profile2} = this.props.route.params;
 
     
 const {data,loading,isRefresh}=this.state
