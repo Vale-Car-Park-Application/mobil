@@ -15,7 +15,7 @@ import {
  } from 'react-native';
  import axios from "axios"
  import Icon from "react-native-vector-icons/Ionicons"
-
+ 
 
  export default class iücdoluluk extends Component{
  
@@ -122,7 +122,7 @@ return(
         </Icon>
         </TouchableOpacity></View>
 
-
+    
 
 
         </View>
