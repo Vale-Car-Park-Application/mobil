@@ -26,7 +26,7 @@ loading:true,
 isRefresh:false,
 page:1,
 show:false,
-
+musait:[]
        }
    }
 
@@ -45,11 +45,25 @@ componentDidMount(){
 
  
 //Sayfa Yenileme
-fetchUser(page=1,isLoadMore=false){
+fetchUser(isLoadMore=false){
     const {carPark2,token2,profile2} = this.props.route.params;
     const{data}=this.state
-    let newData=(isLoadMore) ? data.concat(carPark2.areas) : carPark2.areas
-this.setState({page,data:newData,loading:false,isRefresh:false})
+for(let i=0;i<carPark2.areas.length;i++){
+//console.log(carPark2)
+    if(carPark2.areas[i].reservationState==false && carPark2.areas[i].isFull==false){
+
+ this.state.musait[i]=carPark2.areas[i]
+// this.state.musait[i].reservationState=carPark2.areas[i].reservationState
+// this.state.musait[i].isFull=carPark2.areas[i].isFull
+// this.state.musait[i].remainingTime=carPark2.areas[i].remainingTime
+// this.state.musait[i]._id=carPark2.areas[i]._id
+
+    }
+}
+console.log(this.state.musait)
+
+    let newData=(isLoadMore) ? data.concat(this.state.musait) : this.state.musait
+this.setState({data:newData,loading:false,isRefresh:false})
 }
 
 _renderItem=({item})=>{
@@ -59,11 +73,12 @@ _renderItem=({item})=>{
 return(
     <TouchableOpacity style={{backgroundColor:'#e0e0e0',borderRadius:15}} onPress={()=>{
         item.reservationState = true;
-        axios.put(`https://ieeevale.com/api/carparks/${carPark2._id}`,{
+        item.remainingTime=3600;
+        axios.put(`https://ieeevale.com/api/carparks/${carPark2._id}`,item,{
             headers:{
               'authorization':token2
             }
-          },item).then(res => {
+          }).then(res => {
             this.props.navigation.navigate('timer',{carPark2,profile2,token2,BosYer:item.areaName})
         }).catch((err) => {
             alert(err)
@@ -94,11 +109,6 @@ onRefresh=()=>{
     this.fetchUser()
 }
 
-loadMore=()=>{
-   const {page}=this.state
-   var newPage=page
-   this.fetchUser(newPage,true)
-}
 
 renderFooter=()=>{
 
@@ -136,7 +146,7 @@ const {data,loading,isRefresh}=this.state
           />
       }
       renderItem={this._renderItem}
-      ListEmptyComponent={()=><View><Text>Veri Yok</Text></View>}
+      ListEmptyComponent={()=><View style={{alignItems:'center',fontSize:15}}><Text>Boş Alan Yok</Text></View>}
      ListFooterComponent={this.renderFooter}
      ListFooterComponentStyle={{backgroundColor:'#5d9371',alignItems:'center'}}
      ListHeaderComponent={()=><View><Text style={{color:'white',fontSize:35,fontWeight:'700'}}>Boş Alanlar</Text></View>}
