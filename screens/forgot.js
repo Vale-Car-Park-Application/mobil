@@ -8,8 +8,7 @@ import {Formik} from "formik";
  import * as Yup from 'yup'
 import {observable} from "mobx";
 import {observer,inject} from "mobx-react"; 
-import { TouchableHighlight } from 'react-native-gesture-handler';
-
+import { TouchableHighlight } from 'react-native-gesture-handler';import Drawer from './drawer'
 export default class forgot extends Component{
     constructor(props){
         super(props)
@@ -21,6 +20,7 @@ export default class forgot extends Component{
         alert('Şifreniz Mailinize Gönderilmiştir')
     }        
  
+     
     render(){ 
         
     
@@ -30,7 +30,7 @@ export default class forgot extends Component{
         return(
 <ScrollView style={{backgroundColor: '#f44336'}}>
             <View style={styles.container}>
-            
+        
             <Text style={styles.textBody,{color:'white',fontSize:25}}>Şifre Yenileme İçin</Text>
             <Text style={styles.textBody,{color:'white',fontSize:25}}>Lütfen Mailinizi Giriniz</Text>
             <View style={{marginTop: 20}} />

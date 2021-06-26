@@ -19,6 +19,7 @@
     "@react-native-firebase/firestore": "^11.2.0",
     "@react-native-firebase/storage": "^11.2.0",
     "@react-navigation/bottom-tabs": "^5.11.9",
+    "@react-navigation/drawer": "^5.12.5",
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.4",
     "AsyncStorage": "^0.1.5",
@@ -32,6 +33,7 @@
     "react-native-action-button": "^2.8.5",
     "react-native-awesome-alerts": "^1.4.2",
     "react-native-countdown-component": "^2.7.1",
+    "react-native-drawer": "^2.5.1",
     "react-native-dropdown-picker": "^4.0.2",
     "react-native-elements": "^3.3.2",
     "react-native-fbsdk": "^3.0.0",
@@ -52,6 +54,7 @@
     "react-native-vector-icons": "^8.1.0",
     "react-navigation": "^4.4.4",
     "react-navigation-drawer": "^2.7.1",
+    "react-navigation-transitions": "^1.0.12",
     "reanimated-bottom-sheet": "^1.0.0-alpha.22",
     "yup": "^0.32.9"
   },

@@ -1,4 +1,4 @@
-import React,{Component}from "react";
+import React,{Component,BackHandler}from "react";
 import { 
     View,
     Text,
@@ -30,6 +30,18 @@ musait:[]
        }
    }
 
+   componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+  }
+
+  onBackPress = () => {
+    return true;
+  }
+ 
 componentDidMount(){
     const {carPark2,token2,profile2} = this.props.route.params;
     this.setState({carPark3:carPark2})
@@ -71,9 +83,9 @@ _renderItem=({item})=>{
 
 
 return(
-    <TouchableOpacity style={{backgroundColor:'#e0e0e0',borderRadius:15}} onPress={()=>{
+    <TouchableOpacity style={{marginLeft:'5%',marginRight:'5%',backgroundColor:'#e0e0e0',borderRadius:15},styles.card} onPress={()=>{
         item.reservationState = true;
-        item.remainingTime=3600;
+        item.remainingTime=1
         axios.put(`https://ieeevale.com/api/carparks/${carPark2._id}`,item,{
             headers:{
               'authorization':token2
@@ -84,14 +96,14 @@ return(
             alert(err)
         })}
         }>
-         <LinearGradient colors={['#00ad00', '#00d100','#00ad00',]}style={styles.card} >
+         
   
        {/* <TouchableOpacity onPress={()=>Linking.openURL(item.profile_image)}>
      
       <Image  style={styles.avatar} source={{uri:item.profile_image}}/>
      
       </TouchableOpacity> */}
-      <View style={{marginLeft:15,justifyContent:'center',borderRadius:15}}> 
+      <View style={{alignItems:'center',justifyContent:'center'}}> 
      
       <Text style={{color:'white',fontSize:25,fontWeight:'700'}}>{item.areaName}</Text>
     
@@ -99,7 +111,7 @@ return(
       </View>
      
     
-    </LinearGradient>
+    
     </TouchableOpacity>
 )
 }
@@ -150,7 +162,7 @@ const {data,loading,isRefresh}=this.state
      ListFooterComponent={this.renderFooter}
      ListFooterComponentStyle={{backgroundColor:'#5d9371',alignItems:'center'}}
      ListHeaderComponent={()=><View><Text style={{color:'white',fontSize:35,fontWeight:'700'}}>Boş Alanlar</Text></View>}
-     ListHeaderComponentStyle={{backgroundColor:'#226613',borderRadius:15,height:80,justifyContent:'center',marginBottom:23,alignItems:'center'}}
+     ListHeaderComponentStyle={{backgroundColor:'#1f5c63',borderRadius:15,height:80,justifyContent:'center',marginBottom:23,alignItems:'center'}}
      onEndReachedThreshold={1.8}
      onEndReached={this.loadMore}
      ItemSeparatorComponent={this.rendeSeparator}
@@ -207,11 +219,12 @@ const styles=StyleSheet.create({
     card:{flex:1,
        justifyContent:'center',
        alignItems:'center',
-       marginLeft:2,
+       marginLeft:2
+       ,backgroundColor:'#008ea3',
        marginRight:2,
        paddingHorizontal:15,
-      maxWidth:'100%',
-      width:190,
+      maxWidth:'50%',
+      width:150,
        height:100,
        padding:20,
        borderRadius:55,

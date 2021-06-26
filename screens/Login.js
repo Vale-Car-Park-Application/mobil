@@ -54,8 +54,50 @@ export default class Login extends Component {
   //       console.log(e);
   //     });
   // };
+ 
 
-  
+  componentDidMount(){
+    try{
+      console.log('ahem')
+      const {token} = this.props.route.params;
+      console.log(token)
+      if( this.props.route.params.token!=null){
+         axios.get(`https://ieeevale.com/api/logout`,{
+          headers:{
+            'authorization':this.props.route.params.token
+          }
+        })
+    
+      .then(res =>{console.log(res)})
+    
+    }
+    
+      }
+      catch(err){
+    console.log(err)
+      }
+  }
+  componentWillUnmount(){
+    try{
+      console.log('ahem')
+      const {token} = this.props.route.params;
+      console.log(token)
+      if( this.props.route.params.token!=null){
+         axios.get(`https://ieeevale.com/api/logout`,{
+          headers:{
+            'authorization':this.props.route.params.token
+          }
+        })
+    
+      .then(res =>{console.log(res)})
+    
+    }
+    
+      }
+      catch(err){
+    console.log(err)
+      }
+  }
 
   _handleSubmit = values => {
     axios.post(`${API_URL}/api/signin`, values)
@@ -71,18 +113,20 @@ export default class Login extends Component {
 
   render() {
   
+   
+        
     return (
       
-        <LinearGradient colors={['#006978', '#5d99c6', 'white']}style={styles.container}>
+        <LinearGradient colors={['black','black']}style={styles.container}>
        
           <Image
-            source={require('../assets/vale1.png')}
+            source={require('../assets/vale5.png')}
             resizeMode="center"
             style={styles.image}
           />
 
           <Text style={(styles.textBody, {color: 'white', fontSize: 25})}>
-            GİRİŞ YAP
+            Üye Girişi 
           </Text>
           <View style={{marginTop: 20}} />
 
@@ -104,7 +148,7 @@ export default class Login extends Component {
                   <TextInput
                     value={values.email}
                     onChangeText={handleChange('email')}
-                    placeholder={'Email'}
+                    placeholder={'E-posta'}
                     style={styles.input}
                     keyboardType={'email-address'}></TextInput>
 
@@ -117,7 +161,7 @@ export default class Login extends Component {
                   <Icon
                     name={Platform.OS === 'ios' ? 'ios-add' : 'mail-outline'}
                     //name={(this.state.hidePassword)?"eye-off-outlane:eye-outlane"}  şifre görünürlüğü açıp kapatma
-                    color="#003e47s"
+                    color="#003e47"
                     size={30}
                   />
                 </View>
@@ -133,7 +177,7 @@ export default class Login extends Component {
                     onPress={() =>
                       this.setState({hidePassword: !this.state.hidePassword})
                     }
-                    style={{position: 'absolute', right: 35, top: 22}}>
+                    style={{position: 'absolute', right: 30, top:25}}>
                     <Icon
                       name={
                         this.state.hidePassword
@@ -141,7 +185,7 @@ export default class Login extends Component {
                           : 'eye-outline'
                       }
                       //name={(this.state.hidePassword)?"eye-off-outlane:eye-outlane"}  şifre görünürlüğü açıp kapatma
-                      color="#003e47"
+                      color="blue"
                       size={30}
                     />
                   </TouchableOpacity>
@@ -154,7 +198,7 @@ export default class Login extends Component {
                   <TouchableOpacity
                     onPress={handleSubmit}
                     style={styles.button}>
-                    <Text style={{color: 'white', fontSize: 20}}>GİRİŞ</Text>
+                    <Text style={{color: 'white',fontWeight:'700', fontSize: 20}}>Giriş</Text>
                   </TouchableOpacity>
                 </View>
 
@@ -185,25 +229,26 @@ export default class Login extends Component {
           <View style={{alignItems: 'center'}}>
           <TouchableOpacity onPress={()=>alert("Facebook'la Bağlanıyorsunuz")} style={{position:'absolute',right:5,top:15}}>
           <Image
-            source={require('../assets/face2.png')}
+            source={require('../assets/face.png')}
             resizeMode="center"
-            style={{marginTop:-7,width:85,height:68}}
+            style={{marginTop:-5,width:85,height:65}}
           />
 </TouchableOpacity>
 <TouchableOpacity onPress={()=>alert("Google'la Bağlanıyorsunuz")} style={{position:'absolute',right:-85,top:15}}>
 <Image
-            source={require('../assets/google2.png')}
+            source={require('../assets/google.png')}
             resizeMode="center"
-            style={{width:65,height:50}}
+            style={{width:75,height:55}}
           />
 </TouchableOpacity>
           </View>
-         
+          
           <View style={{flexDirection: 'row', marginVertical: 5,marginTop:80}}>
             <Text style={styles.textBody}>Hesabın Yok mu ? </Text>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate('SignUp')}>
-              <Text style={[styles.textBody, {color: '#00c6ad'}]}>
+             {/* #00c6ad */}
+              <Text style={[styles.textBody, {color: '#006978'}]}>
                 Hesap Oluştur
               </Text>
             </TouchableOpacity>
@@ -237,25 +282,25 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 15,
     marginBottom: 15,
-    color: '#006978',
+    color: 'white',
   },
 
   input: {
     borderRadius: 15,
     backgroundColor: 'white',
     margin: 15,
-    height: 50,
-    width: 250,
+    height: 55,
+    width: 220,
     borderColor: 'gray',
     borderWidth: 1,
   },
   item: {marginBottom: 20, alignItems: 'center'},
   button: {
     backgroundColor: '#008ea3',
-    borderRadius: 15,
+    borderRadius: 25,
     paddingVertical: 15,
     alignItems: 'center',
-    width: 300,
+    width: 175,
   },
-  icon: {position: 'absolute', right: 35, top: 25},
+  icon: {position: 'absolute', right: 30, top: 25},
 });

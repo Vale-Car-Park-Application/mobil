@@ -1,7 +1,8 @@
 import CountDown from 'react-native-countdown-component';
-import React,{Component,useState}from 'react';
+import React,{Component,useState, BackHandler,
+  ToastAndroid,}from 'react';
 import axios from "axios"
-import {View, StyleSheet,TextInput,Pressable, Text,Modal, TouchableOpacity,ScrollView, Image,Alert} from 'react-native';
+import {View, StyleSheet,BackAndroid,TextInput,Pressable, Text,Modal, TouchableOpacity,ScrollView, Image,Alert} from 'react-native';
 import {Linking} from 'react-native'
 import getDirections from 'react-native-google-maps-directions'
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -17,6 +18,16 @@ export default class timer extends Component{
       geldimi:''
     };
   
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+  }
+
+
+
+  onBackPress = () => {
+    return true;
   }
  
   handleGetDirections = () => {
@@ -45,6 +56,8 @@ export default class timer extends Component{
     getDirections(data)
   }
   componentDidMount() {
+    
+
     axios.get(`https://api.stackexchange.com/2.2/users?page=4&order=desc&sort=reputation&site=stackoverflow`)
     .then(res => {
     this.setState({geldimi:false/*res.data.items[12].is_employee*/})
@@ -68,9 +81,13 @@ render() {
 
     return (
 
-<LinearGradient colors={['#7e99bc', '#94b4dd']} style={{flex:1}}>
-
-  <View style={{alignItems:'center'}}>
+<LinearGradient colors={['black', 'black']} style={{flex:1}}>
+<TouchableOpacity onPress={()=>this.props.navigation.openDrawer()} style={{position:'absolute',right:'85%',top:'0%'}}>
+    <Icon  name={Platform.OS === "ios" ? "ios-add" : "menu-outline"}
+  color="white"
+  size={55}/>
+</TouchableOpacity>
+  <View style={{alignItems:'center',marginTop:35}}>
     <Text style={styles.textTitle}>
       {BosYer} Alanı Rezerve Edildi
     </Text>
@@ -86,7 +103,7 @@ render() {
       
       
       }
-        digitStyle={{backgroundColor: '#0094cc', borderWidth: 2, borderColor: '#82f7ff'}}
+        digitStyle={{backgroundColor: 'black', borderWidth: 2, borderColor: '#82f7ff'}}
         digitTxtStyle={{color: 'white'}}
         timeLabelStyle={{color: '#304ffe', fontWeight: 'bold'}}
         separatorStyle={{color: '#0064b7'}}
@@ -95,7 +112,7 @@ render() {
         showSeparator
       />
 </View>
-<View style={{alignItems:'center',marginTop:20}}>
+<View style={{alignItems:'center',marginTop:10}}>
     <Text style={styles.textTitle}>
       Lütfen Bu Süre İçerisinde 
     </Text>
@@ -113,13 +130,13 @@ render() {
                       this.setModalVisible(true)
                     }
                     style={styles.button}>
-                    <Text style={{color: '#00695c',fontWeight: 'bold',fontSize: 20}}>Rezerveyi İptal Et</Text>
+                    <Text style={{color: 'black',fontWeight: 'bold',fontSize: 20}}>Rezerveyi İptal Et</Text>
                   </TouchableOpacity>
                 </View>
 
 
 
-                <View style={{alignItems:'center',marginTop:20}}>
+                <View style={{alignItems:'center'}}>
     <Text style={styles.textTitle}>
       {BosYer} Alanına 
     </Text>
@@ -137,20 +154,20 @@ render() {
                       this.setModalVisible2(true)
                     }
                     style={styles.buttonA}>
-                    <Text style={{color: '#00695c',fontWeight: 'bold',fontSize: 20}}>Geldim</Text>
+                    <Text style={{color: 'black',fontWeight: 'bold',fontSize: 20}}>Geldim</Text>
                   </TouchableOpacity>
                 </View>
-                <View style={{position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection:'row-reverse',marginBottom:'48%',marginRight:'3%'}}>
+                <View style={{position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection:'row-reverse',marginBottom:'0%',marginRight:'3%'}}>
       <TouchableOpacity style={{alignItems: "center",
       
-    backgroundColor: "#004e8e",
-    padding: 10, borderRadius:55}} onPress={()=>this.setModalVisible3(true)}>
+    backgroundColor: "#ffc107",
+    padding: 10, borderRadius:25}} onPress={()=>this.setModalVisible3(true)}>
       <Icon  name={Platform.OS === "ios" ? "ios-add" : "compass-outline"}
-  color="#bbdefb"
-  size={40}>
+  color="black"
+  size={45}>
         </Icon>
         
-        <Text style={{justifyContent: 'center',fontSize:15,fontWeight:'bold',color:'#bbdefb'}}> Ulaşım</Text>
+        <Text style={{justifyContent: 'center',fontSize:20,fontWeight:'bold',color:'black'}}> Ulaşım</Text>
         </TouchableOpacity></View>
               
                <View>
@@ -272,7 +289,7 @@ const styles = StyleSheet.create({
       
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop:80
+        marginTop:40
     },
   
     rezerve: {
@@ -282,10 +299,10 @@ const styles = StyleSheet.create({
         marginTop:300
     },
     button: {
-      backgroundColor: '#00cbcc',
-      borderRadius: 15,
+      backgroundColor: '#ffc107',
+      borderRadius: 25,
     height:75,
-    width:250,
+    width:200,
     marginTop:65,
     marginBottom:55,
       alignItems: 'center',
@@ -293,10 +310,10 @@ const styles = StyleSheet.create({
       
     },
     buttonA: {
-      backgroundColor: '#64ffda',
-      borderRadius: 15,
+      backgroundColor: '#ffc107',
+      borderRadius: 25,
     height:75,
-    width:200,
+    width:180,
     marginTop:50,
       alignItems: 'center',
       justifyContent: 'center',
@@ -308,13 +325,13 @@ const styles = StyleSheet.create({
       fontSize: 16,
       marginTop: 15,
       marginBottom: 15,
-      color: '#003300',
+      color: 'white',
     },
     textTitle: {
       fontSize: 21,
       fontFamily: 'monospace',
     fontWeight:'bold',
-      color:'#283b50',
+      color:'white',
     
   },
   centeredView: {

@@ -214,11 +214,11 @@ export default class Araba extends Component {
                     ]}
                     defaultValue={this.state.yakit}
                     containerStyle={{
-                      marginLeft: 30,
+                      marginLeft: '20%',
                       marginTop: 10,
                       marginBottom: 25,
-                      height: 50,
-                      width: 245,
+                      height: 55,
+                      width: 180,
                     }}
                     style={{backgroundColor: '#fafafa'}}
                     itemStyle={{
@@ -258,11 +258,11 @@ export default class Araba extends Component {
                     ]}
                     defaultValue={this.state.cars}
                     containerStyle={{
-                      marginLeft: 30,
+                      marginLeft: '20%',
                       marginBottom: 25,
                       marginTop: 25,
-                      height: 50,
-                      width: 245,
+                      height: 55,
+                      width: 180,
                     }}
                     style={{backgroundColor: '#fafafa'}}
                     itemStyle={{
@@ -351,8 +351,8 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     backgroundColor: 'white',
     margin: 15,
-    height: 50,
-    width: 243,
+    height: 55,
+    width: 180,
   }, //#009999
   item: {marginBottom: 20, alignItems: 'center'},
   button: {

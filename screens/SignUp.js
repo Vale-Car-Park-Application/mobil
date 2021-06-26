@@ -128,7 +128,7 @@ style={styles.input}></TextInput>
 value={values.email}
 onChangeText={handleChange('email')}
 
-placeholder={"Mail"} 
+placeholder={"E-posta"} 
 style={styles.input}></TextInput>
 
 
@@ -295,8 +295,8 @@ const styles = StyleSheet.create({
         borderRadius:15,
       backgroundColor:'white'
       ,  margin: 15,
-        height: 50,
-        width:250
+        height: 55,
+        width:180
         ,borderColor: 'gray',
         borderWidth: 1
      }, item:{

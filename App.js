@@ -16,12 +16,16 @@ import {
   Modal,
   Button
  } from 'react-native';
- import Navigation from './Navigation';
- 
+ import { NavigationContainer } from "@react-navigation/native";
+
+ import Navigation from './Navigation/Navigation';
+ import DrawerNavigator from './Navigation/DrawerNavigator'
  export default class App extends Component{
   render(){
   return (
-     <Navigation /> 
+    <NavigationContainer>
+     <DrawerNavigator/> 
+     </NavigationContainer>
    );
   }
    }

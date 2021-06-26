@@ -25,8 +25,8 @@ import {
 
     super(props)
     this.state={
- doluluk:'20',
- bosyer:'30',
+ doluluk:0,
+ bosyer:0,
  token2:'',
  profile2:{},
  carPark2:{},
@@ -36,6 +36,7 @@ import {
 
   componentDidMount() {
     const {carPark,token1,profile1} = this.props.route.params;
+    
 this.setState({token2:token1})
 this.setState({profile2:profile1})
     axios.get(`https://ieeevale.com/api/carparks/${carPark._id}`,{
@@ -46,6 +47,20 @@ this.setState({profile2:profile1})
   .then(res => {
  console.log(JSON.stringify(res.data.data.areas));
  this.setState({carPark2:res.data.data});
+ console.log(this.state.carPark2.areas)
+ let count=0;
+ 
+ for(let i=0;i<this.state.carPark2.areas.length;i++){
+
+if(this.state.carPark2.areas[i].reservationState==false&&this.state.carPark2.areas[i].isFull==false){
+
+count++
+
+}
+
+ }
+ this.setState({bosyer:count})
+ this.setState({doluluk:(this.state.carPark2.areas.length-count)/this.state.carPark2.areas.length*100})
  //console.log(this.state.carPark2)
 })
   .catch(e => {console.log(e)});
@@ -58,9 +73,14 @@ return(
      
        <View style={{backgroundColor:'#80cbc4',alignItems:'center',width:'100%',height:'100%'}}>
 
-<TouchableOpacity onPress={()=>this.props.navigation.navigate('map')} style={{position:'absolute',right:'85%',top:'0%'}}>
+<TouchableOpacity onPress={()=>this.props.navigation.navigate('map')} style={{position:'absolute',right:'85%',top:'10%'}}>
     <Icon  name={Platform.OS === "ios" ? "ios-add" : "arrow-back-circle-outline"}
   //name={(this.state.hidePassword)?"eye-off-outlane:eye-outlane"}  şifre görünürlüğü açıp kapatma
+  color="#00675b"
+  size={55}/>
+</TouchableOpacity>
+<TouchableOpacity onPress={()=>this.props.navigation.openDrawer()} style={{position:'absolute',right:'85%',top:'0%'}}>
+    <Icon  name={Platform.OS === "ios" ? "ios-add" : "menu-outline"}
   color="#00675b"
   size={55}/>
 </TouchableOpacity>
