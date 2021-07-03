@@ -7,6 +7,9 @@ import {Linking} from 'react-native'
 import getDirections from 'react-native-google-maps-directions'
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
+var profile;
+let kalanSure;
+let otoparkAlani;
 export default class timer extends Component{
   constructor(props){
 
@@ -16,6 +19,7 @@ export default class timer extends Component{
       modalVisible2:false,
       modalVisible3:false,
       geldimi:''
+      
     };
   
   }
@@ -76,8 +80,30 @@ componentWillMount(){
 render() {
   const phonnumb='05523361923'
   const { modalVisible,modalVisible2,geldimi,modalVisible3 } = this.state;
-  const {BosYer,carPark2,token2,profile2,item} = this.props.route.params;
-console.log(item)
+  const {BosYer,carPark2,item,token} = this.props.route.params;
+
+  // console.log(token);
+  axios.get(`https://ieeevale.com/api/current_user`,{
+    headers:{
+      'authorization':token
+    }
+    }).then(res => {profile=res.data.data 
+      axios.get(`https://ieeevale.com/api/carparks/${profile.reservation.carParkId}`,{
+    headers:{
+      'authorization':token
+    }
+    }).then(res => {
+      // console.log('areas nın lengthi' + res.data.data.areas.length);
+      for(let i = 0; i<res.data.data.areas.length;i++){
+        if(res.data.data.areas[i].areaName == profile.reservation.reservationArea){
+        kalanSure = res.data.data.areas[i].remainingTime;
+        otoparkAlani = res.data.data.areas[i];
+        }
+      }
+    })}).catch((err) => {alert(err)})
+   console.log(typeof kalanSure)
+     
+
     return (
 
 <LinearGradient colors={['black', 'black']} style={{flex:1}}>
@@ -94,11 +120,15 @@ console.log(item)
   <View style={styles.timer}>
       <CountDown
         size={30}
-        until={item.remainingTime*60}
+        until={kalanSure*3600}
         onFinish={() => 
           
-          
-          this.props.navigation.navigate('map')
+          axios.get(`https://ieeevale.com/api/current_user`,{
+            headers:{
+              'authorization':token
+            }
+            }).then(res => {profile=res.data.data
+          this.props.navigation.navigate('map',{profile,token})})
       
       
       }
@@ -232,20 +262,28 @@ console.log(item)
                 <Text style={styles.textStyle2}>Hayır</Text>
               </Pressable>
               <Pressable
-                style={[styles.button3, styles.buttonClose2]}
+              style={[styles.button3, styles.buttonClose2]}
                 onPress={() =>
+                
                   
-                  
-                  { item.reservationState=false,item.remainingTime=0
-                    axios.put(`https://ieeevale.com/api/carparks/${carPark2._id}`,item,{
+                  {   
+                    axios.get(`https://ieeevale.com/api/current_user`,{
+            headers:{
+              'authorization':token
+            }
+            }).then(res => {profile=res.data.data
+                    otoparkAlani.reservationState=false,otoparkAlani.remainingTime=0
+                    console.log(profile);
+                    axios.put(`https://ieeevale.com/api/carparks/${profile.reservation.carParkId}`,otoparkAlani,{
                     headers:{
-                      'authorization':token2
+                      'authorization':token
                     }
                   }).then(res => {
-                    this.props.navigation.navigate('map')
+                    this.props.navigation.navigate('map',{profile,token})
                 }).catch((err) => {
+                  console.log(err.message);
                     alert(err)
-                })
+                })})
 
                    
               

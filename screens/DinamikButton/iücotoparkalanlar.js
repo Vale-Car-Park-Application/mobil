@@ -26,14 +26,16 @@ loading:true,
 isRefresh:false,
 page:1,
 show:false,
-musait:[]
+musait:[],
+carPark3:{}
        }
    }
 
 
  
 componentDidMount(){
-    const {carPark2,token2,profile2} = this.props.route.params;
+   
+    const {carPark2,token,profile} = this.props.route.params;
     this.setState({carPark3:carPark2})
     // axios.get(`https://jsonplaceholder.typicode.com/posts`)
     // .then((res)=>{
@@ -41,14 +43,13 @@ componentDidMount(){
     //     console.log(res.data)
     // })
     // .catch((e)=>console.log(e))
-   // console.log(token2)
     this.fetchUser()
 }
 
  
 //Sayfa Yenileme
 fetchUser(isLoadMore=false){
-    const {carPark2,token2,profile2} = this.props.route.params;
+    const {carPark2,token,profile} = this.props.route.params;
     const{data}=this.state
 for(let i=0;i<carPark2.areas.length;i++){
 //console.log(carPark2)
@@ -62,26 +63,37 @@ for(let i=0;i<carPark2.areas.length;i++){
 
     }
 }
-console.log(this.state.musait)
+// console.log(this.state.musait)
 
     let newData=(isLoadMore) ? data.concat(this.state.musait) : this.state.musait
 this.setState({data:newData,loading:false,isRefresh:false})
 }
 
 _renderItem=({item})=>{
-    const {carPark2,token2,profile2} = this.props.route.params;
-
-
+    const {carPark2,token,profile} = this.props.route.params;
+    
+   
+    
+    
 return(
     <TouchableOpacity style={{marginLeft:'5%',marginRight:'5%',backgroundColor:'#e0e0e0',borderRadius:15},styles.card} onPress={()=>{
         item.reservationState = true;
-        item.remainingTime=1
+        item.remainingTime=2
+        
+        let user_id;
+        axios.get(`https://ieeevale.com/api/current_user`,{
+            headers:{
+              'authorization':token
+            }
+            }).then(res => {user_id = res.data.data._id})
+          
+        item.user_id = user_id;
         axios.put(`https://ieeevale.com/api/carparks/${carPark2._id}`,item,{
             headers:{
-              'authorization':token2
+              'authorization':token
             }
           }).then(res => {
-            this.props.navigation.navigate('timer',{carPark2,profile2,item,token2,BosYer:item.areaName})
+            this.props.navigation.navigate('timer',{carPark2,profile,item,token,BosYer:item.areaName})
         }).catch((err) => {
             alert(err)
         })}
@@ -123,7 +135,7 @@ return <ActivityIndicator style={{color:'#80cbc4'}}/>
 
 
 render (){
-    const {carPark2,token2,profile2} = this.props.route.params;
+    const {carPark2,token,profile} = this.props.route.params;
 
     
 const {data,loading,isRefresh}=this.state

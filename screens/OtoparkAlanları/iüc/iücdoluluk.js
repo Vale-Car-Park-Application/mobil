@@ -28,8 +28,8 @@ import {
     this.state={
  doluluk:0,
  bosyer:0,
- token2:'',
- profile2:{},
+ 
+ 
  carPark2:{},
  show:false
     }
@@ -39,19 +39,19 @@ functionTwo(){
 } 
 
   componentDidMount() {
-    const {carPark,token1,profile1} = this.props.route.params;
-    console.log(token1)
-this.setState({token2:token1})
-this.setState({profile2:profile1})
+    const {carPark,token,profile} = this.props.route.params;
+
+
+
     axios.get(`https://ieeevale.com/api/carparks/${carPark._id}`,{
       headers:{
-        'authorization':token1
+        'authorization':token
       }
     })
   .then(res => {
- console.log(JSON.stringify(res.data.data.areas));
+//  console.log(JSON.stringify(res.data.data.areas));
  this.setState({carPark2:res.data.data});
- console.log(this.state.carPark2.areas)
+//  console.log(this.state.carPark2.areas)
  let count=0;
  
  for(let i=0;i<this.state.carPark2.areas.length;i++){
@@ -71,8 +71,9 @@ count++
   }
   render(){
 
- const {carPark2,profile2,token2}=this.state
+ const {carPark2}=this.state
  //console.log(carPark2)}
+ const {carPark,token,profile} = this.props.route.params;
 return(
      
        <View style={{backgroundColor:'#80cbc4',alignItems:'center',width:'100%',height:'100%'}}>
@@ -103,7 +104,7 @@ return(
 </Text>
 <Text style={{color:'#00897b',fontSize:30 ,marginTop:35,paddingTop:35}}>Rezervasyon İşlemi İçin </Text>
 <Text style={{color:'#00897b',fontSize:30 ,marginBottom:55,paddingTop:35}}> Devam Ediniz</Text>
-<TouchableOpacity  style={{paddingBottom:20,paddingTop:35}}onPress={()=>this.props.navigation.navigate('iücotoparkalanlar',{carPark2,profile2,token2})
+<TouchableOpacity  style={{paddingBottom:20,paddingTop:35}}onPress={()=>this.props.navigation.navigate('iücotoparkalanlar',{carPark2,profile,token})
   /*this.props.navigation.navigate('iücRez')*/
   }>
     <Icon  name={Platform.OS === "ios" ? "ios-add" : "create-outline"}

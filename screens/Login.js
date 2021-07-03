@@ -100,13 +100,28 @@ export default class Login extends Component {
   }
 
   _handleSubmit = values => {
+    let token;
     axios.post(`${API_URL}/api/signin`, values)
       .then(res => {
-        this.props.navigation.navigate('map' ,{profile: JSON.stringify(res.data.data.profile) , token: res.data.data.token});
+        token = res.data.data.token;
+        axios.get(`${API_URL}/api/current_user`,{
+          headers:{
+            'authorization':res.data.data.token
+          }
+          }).then(res => {
+            // console.log(res.data.data)
+            // console.log(res.data.data.reservation.state)
+            if(res.data.data.reservation.state){ this.props.navigation.navigate('timer',{profile: res.data.data, token: token});}
+            else this.props.navigation.navigate('map' ,{profile: res.data.data , token: token});
+
+          })
+        // console.log(res.data.data.token);
+        // this.props.navigation.navigate('map' ,{profile: JSON.stringify(res.data.data.profile) , token: res.data.data.token});
       })
       
       .catch(e => {
-        if(e.response.data.code === 404) alert(e.response.data.message);
+        // if(e.response.data.code === 404) alert(e.response.data.message);
+        alert(e.response.data.message);
         console.log(e);
       });
   };
