@@ -13,6 +13,7 @@ import iücdoluluk from'../screens/OtoparkAlanları/iüc/iücdoluluk'
 import iücotoparkalanlar from'../screens/DinamikButton/iücotoparkalanlar'
 import timer from '../screens/timer'
 import iletisim from '../screens/iletisim'
+import drawer from '../screens/drawer'
 const Stack = createStackNavigator();
 
 const Drawer = createDrawerNavigator();
@@ -39,7 +40,8 @@ const Navigation = props => {
                 <Stack.Screen name="timer" component={timer} options={{headerShown: false,...TransitionPresets.RevealFromBottomAndroid}} />
                 <Stack.Screen name="iletisim" component={iletisim} options={{headerShown: false,...TransitionPresets.RevealFromBottomAndroid}} />
 
-              
+                <Stack.Screen name="drawer" component={drawer} options={{headerShown: false,...TransitionPresets.SlideFromRightIOS}} />
+
             </Stack.Navigator>
 
    

@@ -30,17 +30,7 @@ musait:[]
        }
    }
 
-   componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
-  }
 
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
-  }
-
-  onBackPress = () => {
-    return true;
-  }
  
 componentDidMount(){
     const {carPark2,token2,profile2} = this.props.route.params;
@@ -91,7 +81,7 @@ return(
               'authorization':token2
             }
           }).then(res => {
-            this.props.navigation.navigate('timer',{carPark2,profile2,token2,BosYer:item.areaName})
+            this.props.navigation.navigate('timer',{carPark2,profile2,item,token2,BosYer:item.areaName})
         }).catch((err) => {
             alert(err)
         })}

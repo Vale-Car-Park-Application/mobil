@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { 
   View,
   Text,
-  StyleSheet,
+  StyleSheet,BackHandler,
   ScrollView,
   StatusBar,
   SafeAreaView,
@@ -83,7 +83,10 @@ export default class Drawer extends Component{
    
   </TouchableOpacity> */}
 <View style={{position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection:'row-reverse',marginBottom:'35%',marginRight:'23%'}}>
-  <TouchableOpacity style={{alignItems: "center",justifyContent: "center",width:150,borderRadius:105, height:75,backgroundColor:'red'}} onPress={()=>this.props.navigation.navigate('Login')}>
+  <TouchableOpacity style={{alignItems: "center",justifyContent: "center",width:150,borderRadius:105, height:75,backgroundColor:'red'}} 
+  onPress={()=>
+    BackHandler.exitApp()
+  }>
    
    
    

@@ -1,5 +1,5 @@
 import React,{Component}from 'react';
-import {View, StyleSheet,TextInput, Text, TouchableOpacity,ScrollView, Image} from 'react-native';
+import {View, BackHandler ,StyleSheet,TextInput, Text, TouchableOpacity,ScrollView, Image} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Input from '../components/Inputs';
 import Submit from '../components/Submit'
@@ -12,6 +12,7 @@ import { TouchableHighlight } from 'react-native-gesture-handler';import Drawer 
 export default class forgot extends Component{
     constructor(props){
         super(props)
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
         this.state={
            
         }
@@ -19,7 +20,7 @@ export default class forgot extends Component{
     functionTwo(){
         alert('Şifreniz Mailinize Gönderilmiştir')
     }        
- 
+    
      
     render(){ 
         

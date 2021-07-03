@@ -14,6 +14,7 @@ import {
   Modal
  } from 'react-native';
  import axios from "axios"
+ import DrawerActions from "react-navigation"
  import Icon from "react-native-vector-icons/Ionicons"
  import LinearGradient from 'react-native-linear-gradient';
 
@@ -33,10 +34,13 @@ import {
  show:false
     }
 }
+functionTwo(){
+  alert('Şifreniz Mailinize Gönderilmiştir')
+} 
 
   componentDidMount() {
     const {carPark,token1,profile1} = this.props.route.params;
-    
+    console.log(token1)
 this.setState({token2:token1})
 this.setState({profile2:profile1})
     axios.get(`https://ieeevale.com/api/carparks/${carPark._id}`,{
@@ -79,7 +83,7 @@ return(
   color="#00675b"
   size={55}/>
 </TouchableOpacity>
-<TouchableOpacity onPress={()=>this.props.navigation.openDrawer()} style={{position:'absolute',right:'85%',top:'0%'}}>
+<TouchableOpacity onPress={()=> this.props.navigation.openDrawer(this.functionTwo()) } style={{position:'absolute',right:'85%',top:'0%'}}>
     <Icon  name={Platform.OS === "ios" ? "ios-add" : "menu-outline"}
   color="#00675b"
   size={55}/>

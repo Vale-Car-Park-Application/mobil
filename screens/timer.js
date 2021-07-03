@@ -1,8 +1,8 @@
 import CountDown from 'react-native-countdown-component';
-import React,{Component,useState, BackHandler,
-  ToastAndroid,}from 'react';
+import React,{Component,useEffect,
+  }from 'react';
 import axios from "axios"
-import {View, StyleSheet,BackAndroid,TextInput,Pressable, Text,Modal, TouchableOpacity,ScrollView, Image,Alert} from 'react-native';
+import {View,  BackHandler,BackAndroid,ToastAndroid,StyleSheet,TextInput,Pressable, Text,Modal, TouchableOpacity,ScrollView, Image,Alert} from 'react-native';
 import {Linking} from 'react-native'
 import getDirections from 'react-native-google-maps-directions'
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -20,11 +20,10 @@ export default class timer extends Component{
   
   }
 
-  componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
-  }
-
-
+//GERİ GİTMEYİ ENGELLER
+componentWillMount(){
+  BackHandler.addEventListener('hardwareBackPress', function() {return true})
+}
 
   onBackPress = () => {
     return true;
@@ -77,8 +76,8 @@ export default class timer extends Component{
 render() {
   const phonnumb='05523361923'
   const { modalVisible,modalVisible2,geldimi,modalVisible3 } = this.state;
-  const {BosYer,carPark2,token2,profile2} = this.props.route.params;
-
+  const {BosYer,carPark2,token2,profile2,item} = this.props.route.params;
+console.log(item)
     return (
 
 <LinearGradient colors={['black', 'black']} style={{flex:1}}>
@@ -95,7 +94,7 @@ render() {
   <View style={styles.timer}>
       <CountDown
         size={30}
-        until={3600}
+        until={item.remainingTime*60}
         onFinish={() => 
           
           
@@ -234,7 +233,26 @@ render() {
               </Pressable>
               <Pressable
                 style={[styles.button3, styles.buttonClose2]}
-                onPress={() =>this.props.navigation.navigate('map')}
+                onPress={() =>
+                  
+                  
+                  { item.reservationState=false,item.remainingTime=0
+                    axios.put(`https://ieeevale.com/api/carparks/${carPark2._id}`,item,{
+                    headers:{
+                      'authorization':token2
+                    }
+                  }).then(res => {
+                    this.props.navigation.navigate('map')
+                }).catch((err) => {
+                    alert(err)
+                })
+
+                   
+              
+              
+              
+              }
+            }
               >
                 <Text style={styles.textStyle2}>Evet</Text>
               </Pressable>
