@@ -251,7 +251,7 @@ export default class Login extends Component {
 </TouchableOpacity>
 <TouchableOpacity onPress={()=>alert("Google'la Bağlanıyorsunuz")} style={{position:'absolute',right:-85,top:15}}>
 <Image
-            source={require('../assets/google.png')}
+            source={require('../assets/face.png')}
             resizeMode="center"
             style={{width:75,height:55}}
           />

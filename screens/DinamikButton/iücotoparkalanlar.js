@@ -78,7 +78,7 @@ _renderItem=({item})=>{
 return(
     <TouchableOpacity style={{marginLeft:'5%',marginRight:'5%',backgroundColor:'#e0e0e0',borderRadius:15},styles.card} onPress={()=>{
         item.reservationState = true;
-        item.remainingTime=2
+        item.remainingTime=10
         
         let user_id;
         axios.get(`https://ieeevale.com/api/current_user`,{

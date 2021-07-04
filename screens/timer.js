@@ -8,10 +8,12 @@ import getDirections from 'react-native-google-maps-directions'
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 var profile;
-let kalanSure;
+let kalanSure = new Number();
 let otoparkAlani;
+let count;
 export default class timer extends Component{
   constructor(props){
+    
 
     super(props);
    this.state = {
@@ -27,6 +29,29 @@ export default class timer extends Component{
 //GERİ GİTMEYİ ENGELLER
 componentWillMount(){
   BackHandler.addEventListener('hardwareBackPress', function() {return true})
+  
+  const {token} = this.props.route.params;
+  // console.log(token);
+  axios.get(`https://ieeevale.com/api/current_user`,{
+    headers:{
+      'authorization':token
+    }
+    }).then(res => {profile=res.data.data 
+      axios.get(`https://ieeevale.com/api/carparks/${profile.reservation.carParkId}`,{
+    headers:{
+      'authorization':token
+    }
+    }).then(res => {
+      // console.log('areas nın lengthi' + res.data.data.areas.length);
+      for(let i = 0; i<res.data.data.areas.length;i++){
+        if(res.data.data.areas[i].areaName == profile.reservation.reservationArea){
+        kalanSure = res.data.data.areas[i].remainingTime;
+        kalanSure = kalanSure*60;
+        otoparkAlani = res.data.data.areas[i];
+        }
+      }
+    })}).catch((err) => {alert(err)})
+
 }
 
   onBackPress = () => {
@@ -59,6 +84,7 @@ componentWillMount(){
     getDirections(data)
   }
   componentDidMount() {
+
     
 
     axios.get(`https://api.stackexchange.com/2.2/users?page=4&order=desc&sort=reputation&site=stackoverflow`)
@@ -77,32 +103,18 @@ componentWillMount(){
   setModalVisible3 = (visible) => {
     this.setState({ modalVisible3: visible });
   }
+ 
+
+
+
+
 render() {
   const phonnumb='05523361923'
   const { modalVisible,modalVisible2,geldimi,modalVisible3 } = this.state;
-  const {BosYer,carPark2,item,token} = this.props.route.params;
+  const {token} = this.props.route.params;
+  
 
-  // console.log(token);
-  axios.get(`https://ieeevale.com/api/current_user`,{
-    headers:{
-      'authorization':token
-    }
-    }).then(res => {profile=res.data.data 
-      axios.get(`https://ieeevale.com/api/carparks/${profile.reservation.carParkId}`,{
-    headers:{
-      'authorization':token
-    }
-    }).then(res => {
-      // console.log('areas nın lengthi' + res.data.data.areas.length);
-      for(let i = 0; i<res.data.data.areas.length;i++){
-        if(res.data.data.areas[i].areaName == profile.reservation.reservationArea){
-        kalanSure = res.data.data.areas[i].remainingTime;
-        otoparkAlani = res.data.data.areas[i];
-        }
-      }
-    })}).catch((err) => {alert(err)})
-   console.log(typeof kalanSure)
-     
+    
 
     return (
 
@@ -114,13 +126,13 @@ render() {
 </TouchableOpacity>
   <View style={{alignItems:'center',marginTop:35}}>
     <Text style={styles.textTitle}>
-      {BosYer} Alanı Rezerve Edildi
+      {/* {BosYer}  */}Alanı Rezerve Edildi
     </Text>
   </View>
   <View style={styles.timer}>
       <CountDown
         size={30}
-        until={kalanSure*3600}
+        until={kalanSure}
         onFinish={() => 
           
           axios.get(`https://ieeevale.com/api/current_user`,{
@@ -167,7 +179,7 @@ render() {
 
                 <View style={{alignItems:'center'}}>
     <Text style={styles.textTitle}>
-      {BosYer} Alanına 
+      {/* {BosYer}  */}Alanına 
     </Text>
     <Text style={styles.textTitle}>
     Geldiyseniz
@@ -213,7 +225,7 @@ render() {
             <View style={styles.modalView}>
            { (geldimi) ?
   <LinearGradient colors={['#008400', '#03d600','green']} style={styles.view2}>
-<Text style={styles.text2}>{BosYer} Alanında </Text><Text style={styles.text2}>Olduğunuz Onaylandı.</Text><Text style={styles.text2}>İyi Günler Dileriz</Text>
+<Text style={styles.text2}>{/*BosYer*/} Alanında </Text><Text style={styles.text2}>Olduğunuz Onaylandı.</Text><Text style={styles.text2}>İyi Günler Dileriz</Text>
 <TouchableOpacity style={{alignItems: "center",justifyContent:'center',
    width:200,
    marginTop:50,
@@ -224,7 +236,7 @@ render() {
 
 :
 <LinearGradient colors={['#d30000', '#e53935','red']} style={styles.view1}>
- <Text style={styles.text1}>{BosYer} alanı boş görünmekte.</Text><Text style={styles.text1}>Lütfen otopark ile iletişime geçiniz.</Text>
+ <Text style={styles.text1}>{/*BosYer*/} alanı boş görünmekte.</Text><Text style={styles.text1}>Lütfen otopark ile iletişime geçiniz.</Text>
  <TouchableOpacity onPress={()=>Linking.openURL(`tel:${phonnumb}`)
 }>
 <Text style={{paddingTop:40,textDecorationLine: 'underline',paddingBottom:40,fontSize:30,color:'blue',fontWeight:'700',fontFamily:'lucida grande'}}>Tel:0 552 336 19 23 </Text>
